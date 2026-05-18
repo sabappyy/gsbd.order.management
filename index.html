@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GSBD Order Management</title>
+<style>
+body{font-family:Arial;max-width:700px;margin:auto;padding:20px}
+input,select,button,textarea{width:100%;padding:10px;margin:6px 0}
+.card{border:1px solid #ddd;padding:15px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>GSBD Order Form</h2>
+<input id=name placeholder="Customer Name" required>
+<input id=phone placeholder="Phone" required>
+<input id=address placeholder="Address" required>
+<select id=product></select>
+<div>Stock Left: <span id=stock>0</span></div>
+<input id=qty type=number placeholder="Qty">
+<select id=area><option>Inside Dhaka</option><option>Outside Dhaka</option></select>
+<select id=paid><option>Yes</option><option>No</option></select>
+<input id=moderator placeholder="Moderator">
+<textarea id=note placeholder="Note"></textarea>
+<div>Unit Price: <span id=price>0</span></div>
+<div>Final Bill: <span id=bill>0</span></div>
+<button onclick="submitOrder()">Submit</button>
+</div>
+<script>
+const API="https://script.google.com/macros/s/AKfycbw0CMAM4E00q0gFAQ3XlHqnKt1l8RrzqFnwGfMXnr4xVgkAp-fBtR6kpaQMh5aFOkar/exec";
+let products=[];
+fetch(API).then(r=>r.json()).then(d=>{
+products=d;
+product.innerHTML=d.map(x=>`<option>${x.name}</option>`).join('');
+update();
+});
+function update(){
+let p=products.find(x=>x.name===product.value)||{price:0,stock:0};
+price.innerText=p.price; stock.innerText=p.stock;
+let fee=area.value=="Inside Dhaka"?60:120;
+bill.innerText=(qty.value||0)*p.price+(paid.value=="No"?fee:0);
+}
+['product','qty','area','paid'].forEach(id=>document.getElementById(id).onchange=update);
+async function submitOrder(){
+let p=products.find(x=>x.name===product.value);
+if(+qty.value>p.stock){alert("Insufficient stock");return;}
+let fee=area.value=="Inside Dhaka"?60:120;
+let data={name:name.value,phone:phone.value,address:address.value,product:product.value,qty:+qty.value,unitPrice:p.price,deliveryArea:area.value,deliveryPaid:paid.value,deliveryFee:fee,finalBill:+bill.innerText,note:note.value,moderator:moderator.value};
+await fetch(API,{method:"POST",body:JSON.stringify(data)});
+alert("Order Saved");
+location.reload();
+}
+</script>
+</body></html>
