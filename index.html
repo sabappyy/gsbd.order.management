@@ -1,424 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GSBD Order Management</title>
-
-<style>
-
-body{
-font-family:system-ui;
-background:#f3f6fb;
-margin:0;
-padding:0;
-}
-
-.wrap{
-max-width:720px;
-margin:auto;
-padding:20px;
-}
-
-.card{
-
-background:white;
-
-padding:25px;
-
-border-radius:24px;
-
-box-shadow:
-0 10px 30px rgba(
-0,0,0,.08
-);
-
-}
-
-
-.logo{
-
-font-size:30px;
-
-font-weight:bold;
-
-}
-
-
-.sub{
-
-color:#666;
-
-margin-bottom:20px;
-
-}
-
-
-input,
-select,
-textarea,
-button{
-
-width:100%;
-
-padding:14px;
-
-margin:8px 0;
-
-border-radius:12px;
-
-border:
-
-1px solid #ddd;
-
-box-sizing:border-box;
-
-}
-
-
-.grid{
-
-display:grid;
-
-grid-template-columns:
-
-1fr 1fr;
-
-gap:10px;
-
-}
-
-
-.stat{
-
-background:#f8fafc;
-
-padding:12px;
-
-border-radius:12px;
-
-}
-
-
-button{
-
-background:#111;
-
-color:white;
-
-border:none;
-
-font-size:16px;
-
-cursor:pointer;
-
-}
-
-
-button:hover{
-
-opacity:.9;
-
-}
-
-
-.req:after{
-
-content:" *";
-
-color:red;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-
-<div class="wrap">
-
-<div class="card">
-
-
-<div class="logo">
-
-GSBD
-
-</div>
-
-
-<div class="sub">
-
-Order Management System
-
-</div>
-
-
-<label class="req">
-
-Customer Name
-
-</label>
-
-<input id="name">
-
-
-
-<label class="req">
-
-Phone
-
-</label>
-
-<input id="phone">
-
-
-
-<label class="req">
-
-Address
-
-</label>
-
-<textarea id="address"></textarea>
-
-
-
-<label class="req">
-
-Product
-
-</label>
-
-<select id="product"></select>
-
-
-
-<div class="grid">
-
-<div class="stat">
-
-Stock Left:
-
-<b id="stock">
-
-0
-
-</b>
-
-</div>
-
-
-
-<div class="stat">
-
-Price:
-
-৳
-
-<b id="price">
-
-0
-
-</b>
-
-</div>
-
-</div>
-
-
-
-<label class="req">
-
-Qty
-
-</label>
-
-<input
-id="qty"
-type="number"
->
-
-
-
-<label>
-
-Delivery Area
-
-</label>
-
-<select id="area">
-
-<option>
-
-Inside Dhaka
-
-</option>
-
-<option>
-
-Outside Dhaka
-
-</option>
-
-</select>
-
-
-
-<label>
-
-Delivery Paid?
-
-</label>
-
-<select id="paid">
-
-<option>
-
-Yes
-
-</option>
-
-<option>
-
-No
-
-</option>
-
-</select>
-
-
-
-<label>
-
-Discount (৳)
-
-</label>
-
-<input
-
-id="discount"
-
-type="number"
-
-value="0"
-
->
-
-
-
-<label class="req">
-
-Moderator
-
-</label>
-
-<select id="moderator">
-
-</select>
-
-
-
-<label>
-
-Note
-
-</label>
-
-<textarea id="note">
-
-</textarea>
-
-
-
-<div class="stat">
-
-Final Bill:
-
-৳
-
-<b id="bill">
-
-0
-
-</b>
-
-</div>
-
-
-
-<button
-onclick="submitOrder()"
->
-
-Confirm Order
-
-</button>
-
-
-</div>
-
-</div>
-
-
-
 <script>
 
-const API=
-
+const API =
 "https://script.google.com/macros/s/AKfycbw0CMAM4E00q0gFAQ3XlHqnKt1l8RrzqFnwGfMXnr4xVgkAp-fBtR6kpaQMh5aFOkar/exec";
-
 
 let products=[];
 
 
 
-window.onload=
+window.onload = async function(){
 
-async()=>{
+try{
 
+/* Load Products */
 
-products=
+let response = await fetch(API);
 
-await(
-
-await fetch(
-API
-)
-
-)
-
-.json();
+products = await response.json();
 
 
-
-document
-.getElementById(
+let productSelect =
+document.getElementById(
 "product"
-)
+);
 
-.innerHTML=
+
+productSelect.innerHTML =
 
 products.map(
 
-x=>
+p =>
 
-`<option>
+`<option value="${p.name}">
 
-${x.name}
+${p.name}
 
 </option>`
 
-)
-
-.join('');
+).join("");
 
 
 
-let mods=
+/* Load Moderators */
 
-await(
+let modResponse =
 
 await fetch(
 
@@ -426,12 +50,12 @@ API+
 
 "?type=moderators"
 
-)
+);
 
-)
 
-.json();
+let mods =
 
+await modResponse.json();
 
 
 document
@@ -439,34 +63,46 @@ document
 "moderator"
 )
 
-.innerHTML=
+.innerHTML =
 
 mods.map(
 
-x=>
+m=>
 
 `<option>
 
-${x}
+${m}
 
 </option>`
 
 )
 
-.join('');
+.join("");
 
 
 
-update();
+updateBill();
+
+
+}catch(err){
+
+console.log(err);
+
+alert(
+"Failed loading products"
+);
+
+}
 
 }
 
 
 
-function update(){
+
+function updateBill(){
 
 
-let p=
+let selected =
 
 products.find(
 
@@ -504,7 +140,7 @@ document
 
 =
 
-p.price;
+selected.price;
 
 
 
@@ -517,34 +153,11 @@ document
 
 =
 
-p.stock;
+selected.stock;
 
 
 
-let fee=
-
-document
-.getElementById(
-"area"
-)
-
-.value
-
-==
-
-"Inside Dhaka"
-
-?
-
-60
-
-:
-
-120;
-
-
-
-let qty=
+let qty =
 
 +
 
@@ -578,14 +191,37 @@ document
 
 
 
-let total=
+let fee =
+
+document
+.getElementById(
+"area"
+)
+
+.value
+
+==
+
+"Inside Dhaka"
+
+?
+
+60
+
+:
+
+120;
+
+
+
+let total =
 
 
 (
 
 qty*
 
-p.price
+selected.price
 
 )
 
@@ -630,49 +266,45 @@ document
 =
 
 Math.max(
-
-total,
-
-0
-
+0,
+total
 );
-
-
 
 }
 
 
 
-[
+/* Events */
 
-"product",
+["product",
 
 "qty",
 
+"discount",
+
 "area",
 
-"paid",
-
-"discount"
+"paid"
 
 ]
 
 .forEach(
 
-id=>
+id=>{
 
 document
-.getElementById(
-id
-)
+
+.getElementById(id)
 
 .addEventListener(
 
-"change",
+"input",
 
-update
+updateBill
 
-)
+);
+
+}
 
 );
 
@@ -749,7 +381,7 @@ if(
 
 alert(
 
-"Fill required fields"
+"Fill all required fields"
 
 );
 
@@ -759,7 +391,7 @@ return;
 
 
 
-let p=
+let selected=
 
 products.find(
 
@@ -767,12 +399,7 @@ x=>
 
 x.name===
 
-document
-.getElementById(
-"product"
-)
-
-.value
+product.value
 
 );
 
@@ -782,7 +409,7 @@ if(
 
 qty>
 
-p.stock
+selected.stock
 
 ){
 
@@ -800,12 +427,7 @@ return;
 
 let fee=
 
-document
-.getElementById(
-"area"
-)
-
-.value
+area.value
 
 ==
 
@@ -831,7 +453,6 @@ method:
 
 "POST",
 
-
 body:
 
 JSON.stringify({
@@ -840,109 +461,61 @@ name:
 
 customer,
 
-
 phone:
 
 phone,
-
 
 address:
 
 address,
 
-
 product:
 
-document
-.getElementById(
-"product"
-)
-
-.value,
-
+product.value,
 
 qty:
 
 qty,
 
-
 unitPrice:
 
-p.price,
-
+selected.price,
 
 deliveryArea:
 
-document
-.getElementById(
-"area"
-)
-
-.value,
-
+area.value,
 
 deliveryPaid:
 
-document
-.getElementById(
-"paid"
-)
-
-.value,
-
+paid.value,
 
 deliveryFee:
 
 fee,
 
-
 discount:
 
 +
 
-document
-.getElementById(
-"discount"
-)
-
-.value
+discount.value
 
 ||
 
 0,
 
-
 finalBill:
 
 +
 
-document
-.getElementById(
-"bill"
-)
-
-.innerText,
-
+bill.innerText,
 
 note:
 
-document
-.getElementById(
-"note"
-)
-
-.value,
-
+note.value,
 
 moderator:
 
-document
-.getElementById(
-"moderator"
-)
-
-.value
-
+moderator.value
 
 })
 
@@ -962,13 +535,8 @@ alert(
 
 location.reload();
 
-
 }
 
 
+
 </script>
-
-
-</body>
-
-</html>
