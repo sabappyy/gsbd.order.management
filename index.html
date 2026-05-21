@@ -1,434 +1,228 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1"
->
-
-<title>
-
-GSBD Order Management
-
-</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GSBD Order Management</title>
 
 <style>
-
 body{
-
-font-family:Arial;
-
+font-family:Arial,sans-serif;
 background:#f4f7fb;
-
 margin:0;
-
 padding:20px;
-
 }
-
 
 .container{
-
 max-width:700px;
-
 margin:auto;
-
 background:white;
-
 padding:25px;
-
 border-radius:20px;
-
-box-shadow:
-
-0 10px 25px rgba(
-0,0,0,.08
-);
-
+box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
-
-
-input,
-select,
-textarea,
-button{
-
+input,select,textarea,button{
 width:100%;
-
 padding:14px;
-
 margin:8px 0;
-
-border:
-
-1px solid #ddd;
-
+border:1px solid #ddd;
 border-radius:10px;
-
 box-sizing:border-box;
-
 }
-
-
 
 button{
-
 background:#111;
-
 color:white;
-
 border:none;
-
-cursor:pointer;
-
 font-size:16px;
-
+cursor:pointer;
 }
-
-
 
 .stats{
-
 display:flex;
-
 gap:10px;
-
 }
-
-
 
 .box{
-
 flex:1;
-
 background:#f8fafc;
-
 padding:12px;
-
 border-radius:10px;
-
 }
-
-
-
-/* loading */
 
 #loading{
-
 display:none;
-
 position:fixed;
-
 top:0;
-
 left:0;
-
 width:100%;
-
 height:100%;
-
-background:
-
-rgba(
-
-0,0,0,.5
-
-);
-
+background:rgba(0,0,0,.5);
 justify-content:center;
-
 align-items:center;
-
 color:white;
-
 font-size:24px;
-
 z-index:999;
-
 }
-
-
-
-/* popup */
 
 #success{
-
 display:none;
-
 position:fixed;
-
 top:50%;
-
 left:50%;
-
-transform:
-
-translate(
-
--50%,
-
--50%
-
-);
-
+transform:translate(-50%,-50%);
 background:white;
-
 padding:30px;
-
 border-radius:20px;
-
-box-shadow:
-
-0 0 25px rgba(
-0,0,0,.2
-);
-
-z-index:1000;
-
+box-shadow:0 0 30px rgba(0,0,0,.2);
 text-align:center;
-
+z-index:1000;
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-
 <div id="loading">
-
 Submitting Order...
-
 </div>
-
-
 
 <div id="success">
-
 <h2>
-
 ✅ খেলা শেষ
-
 </h2>
 
-
 <p>
-
 Order saved successfully
-
 </p>
 
-
-<button
-
-onclick="closePopup()"
-
->
-
+<button onclick="closePopup()">
 OK
-
 </button>
-
-
 </div>
-
-
 
 
 <div class="container">
 
-
 <h2>
-
 GSBD Order Management
-
 </h2>
 
-
+<p style="color:#666;margin-top:-10px;">
+Order Confirmation & Inventory Management
+</p>
 
 
 <input
-
 id="name"
-
-placeholder="Customer Name"
-
+placeholder="Customer Name *"
 >
-
-
 
 
 <input
-
 id="phone"
-
-placeholder="Phone"
-
+placeholder="Phone Number *"
 >
-
-
 
 
 <textarea
-
 id="address"
-
-placeholder="Address"
-
->
-
-</textarea>
-
+placeholder="Customer Address *"
+></textarea>
 
 
 
 <select id="product">
 
 <option>
-
-Loading Products...
-
+Select Product *
 </option>
 
 </select>
 
 
 
-
 <div class="stats">
 
-
 <div class="box">
-
-Stock:
-
-<b id="stock">
-
-0
-
-</b>
-
+Stock Left:
+<b id="stock">0</b>
 </div>
 
 
-
 <div class="box">
-
-Price:
-
+Unit Price:
 ৳
-
-<b id="price">
-
-0
-
-</b>
-
+<b id="price">0</b>
 </div>
 
-
-
 </div>
-
 
 
 
 <input
-
 id="qty"
-
 type="number"
-
-placeholder="Qty"
-
+placeholder="Quantity *"
 >
-
 
 
 
 <select id="area">
 
 <option>
-
 Inside Dhaka
-
 </option>
 
-
 <option>
-
 Outside Dhaka
-
 </option>
 
 </select>
-
 
 
 
 <select id="paid">
 
 <option>
-
-Yes
-
+Customer Paid Delivery? *
 </option>
 
+<option>
+Yes
+</option>
 
 <option>
-
 No
-
 </option>
 
 </select>
 
 
 
-
 <input
-
 id="discount"
-
 type="number"
-
 placeholder="Discount (optional)"
-
 value="0"
-
 >
-
 
 
 
 <select id="moderator">
 
 <option>
-
-Loading...
-
+Select Moderator *
 </option>
 
 </select>
 
 
 
-
 <textarea
-
 id="note"
-
-placeholder="Note"
-
->
-
-</textarea>
+placeholder="Order Notes (optional)"
+></textarea>
 
 
 
@@ -448,16 +242,10 @@ Final Bill:
 </div>
 
 
-
 <br>
 
 
-
-<button
-
-onclick="submitOrder()"
-
->
+<button onclick="submitOrder()">
 
 Confirm Order
 
@@ -469,14 +257,10 @@ Confirm Order
 
 
 
-
 <script>
 
-
-const API=
-
+const API =
 "https://script.google.com/macros/s/AKfycbw0CMAM4E00q0gFAQ3XlHqnKt1l8RrzqFnwGfMXnr4xVgkAp-fBtR6kpaQMh5aFOkar/exec";
-
 
 let products=[];
 
@@ -484,26 +268,18 @@ let products=[];
 
 async function load(){
 
-
-products=
-
+products =
 await(
-
-await fetch(
-API
-)
-
-)
-
-.json();
+await fetch(API)
+).json();
 
 
 
-product.innerHTML=
+product.innerHTML =
 
 products.map(
 
-p=>
+p =>
 
 `<option>
 
@@ -511,27 +287,17 @@ ${p.name}
 
 </option>`
 
-)
-
-.join('');
+).join('');
 
 
 
-let mods=
+let mods =
 
 await(
-
 await fetch(
-
-API+
-
-"?type=moderators"
-
+API+"?type=moderators"
 )
-
-)
-
-.json();
+).json();
 
 
 
@@ -555,13 +321,10 @@ ${m}
 
 update();
 
-
 }
 
 
-
 load();
-
 
 
 
@@ -633,7 +396,6 @@ discount.value
 
 
 let total=
-
 
 (
 
@@ -730,9 +492,7 @@ update
 
 
 
-
 async function submitOrder(){
-
 
 
 if(
@@ -759,14 +519,6 @@ if(
 
 !moderator.value
 
-||
-
-!area.value
-
-||
-
-!paid.value
-
 ){
 
 alert(
@@ -778,7 +530,6 @@ alert(
 return;
 
 }
-
 
 
 
@@ -1005,11 +756,7 @@ location.reload();
 }
 
 
-
 </script>
 
-
-
 </body>
-
 </html>
