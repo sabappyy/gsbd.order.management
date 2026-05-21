@@ -1,70 +1,974 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+<head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GSBD Order Management</title>
+
 <style>
-body{font-family:system-ui;background:#f4f7fb;margin:0}.wrap{max-width:700px;margin:auto;padding:20px}
-.card{background:#fff;border-radius:22px;padding:24px;box-shadow:0 12px 30px rgba(0,0,0,.08)}
-input,select,textarea,button{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;margin:8px 0;box-sizing:border-box}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat{background:#f8fafc;padding:12px;border-radius:12px}
-button{background:#111;color:#fff}.logo{font-size:30px;font-weight:700}.sub{color:#666}.req:after{content:" *";color:red}
-</style></head><body><div class="wrap"><div class="card">
-<div class="logo">GSBD</div><div class="sub">Order Management System</div><hr>
-<label class=req>Customer Name</label><input id="name">
-<label class=req>Phone</label><input id="phone">
-<label class=req>Address</label><textarea id="address"></textarea>
-<label class=req>Product</label><select id="product"></select>
-<div class="grid"><div class="stat">Stock: <b id="stock">0</b></div><div class="stat">Price: <b id="price">0</b></div></div>
-<label class=req>Qty</label><input id="qty" type="number">
-<label>Delivery Area</label><select id="area"><option>Inside Dhaka</option><option>Outside Dhaka</option></select>
-<label>Delivery Paid?</label><select id="paid"><option>Yes</option><option>No</option></select>
-<label class=req>Moderator</label><select id="moderator"></select>
-<label>Note</label><textarea id="note"></textarea>
-<div class="stat">Final Bill: <b id="bill">0</b></div>
-<button onclick="submitOrder()">Confirm Order</button>
-</div></div>
+
+body{
+font-family:system-ui;
+background:#f3f6fb;
+margin:0;
+padding:0;
+}
+
+.wrap{
+max-width:720px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+
+background:white;
+
+padding:25px;
+
+border-radius:24px;
+
+box-shadow:
+0 10px 30px rgba(
+0,0,0,.08
+);
+
+}
+
+
+.logo{
+
+font-size:30px;
+
+font-weight:bold;
+
+}
+
+
+.sub{
+
+color:#666;
+
+margin-bottom:20px;
+
+}
+
+
+input,
+select,
+textarea,
+button{
+
+width:100%;
+
+padding:14px;
+
+margin:8px 0;
+
+border-radius:12px;
+
+border:
+
+1px solid #ddd;
+
+box-sizing:border-box;
+
+}
+
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+
+1fr 1fr;
+
+gap:10px;
+
+}
+
+
+.stat{
+
+background:#f8fafc;
+
+padding:12px;
+
+border-radius:12px;
+
+}
+
+
+button{
+
+background:#111;
+
+color:white;
+
+border:none;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+
+button:hover{
+
+opacity:.9;
+
+}
+
+
+.req:after{
+
+content:" *";
+
+color:red;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="wrap">
+
+<div class="card">
+
+
+<div class="logo">
+
+GSBD
+
+</div>
+
+
+<div class="sub">
+
+Order Management System
+
+</div>
+
+
+<label class="req">
+
+Customer Name
+
+</label>
+
+<input id="name">
+
+
+
+<label class="req">
+
+Phone
+
+</label>
+
+<input id="phone">
+
+
+
+<label class="req">
+
+Address
+
+</label>
+
+<textarea id="address"></textarea>
+
+
+
+<label class="req">
+
+Product
+
+</label>
+
+<select id="product"></select>
+
+
+
+<div class="grid">
+
+<div class="stat">
+
+Stock Left:
+
+<b id="stock">
+
+0
+
+</b>
+
+</div>
+
+
+
+<div class="stat">
+
+Price:
+
+৳
+
+<b id="price">
+
+0
+
+</b>
+
+</div>
+
+</div>
+
+
+
+<label class="req">
+
+Qty
+
+</label>
+
+<input
+id="qty"
+type="number"
+>
+
+
+
+<label>
+
+Delivery Area
+
+</label>
+
+<select id="area">
+
+<option>
+
+Inside Dhaka
+
+</option>
+
+<option>
+
+Outside Dhaka
+
+</option>
+
+</select>
+
+
+
+<label>
+
+Delivery Paid?
+
+</label>
+
+<select id="paid">
+
+<option>
+
+Yes
+
+</option>
+
+<option>
+
+No
+
+</option>
+
+</select>
+
+
+
+<label>
+
+Discount (৳)
+
+</label>
+
+<input
+
+id="discount"
+
+type="number"
+
+value="0"
+
+>
+
+
+
+<label class="req">
+
+Moderator
+
+</label>
+
+<select id="moderator">
+
+</select>
+
+
+
+<label>
+
+Note
+
+</label>
+
+<textarea id="note">
+
+</textarea>
+
+
+
+<div class="stat">
+
+Final Bill:
+
+৳
+
+<b id="bill">
+
+0
+
+</b>
+
+</div>
+
+
+
+<button
+onclick="submitOrder()"
+>
+
+Confirm Order
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
 <script>
-const API="https://script.google.com/macros/s/AKfycbw0CMAM4E00q0gFAQ3XlHqnKt1l8RrzqFnwGfMXnr4xVgkAp-fBtR6kpaQMh5aFOkar/exec";
+
+const API=
+
+"https://script.google.com/macros/s/AKfycbw0CMAM4E00q0gFAQ3XlHqnKt1l8RrzqFnwGfMXnr4xVgkAp-fBtR6kpaQMh5aFOkar/exec";
+
+
 let products=[];
-window.onload=async()=>{
- products=await (await fetch(API)).json();
- document.getElementById("product").innerHTML=products.map(x=>`<option>${x.name}</option>`).join('');
- let mods=await (await fetch(API+"?type=moderators")).json();
- document.getElementById("moderator").innerHTML=mods.map(x=>`<option>${x}</option>`).join('');
- update();
+
+
+
+window.onload=
+
+async()=>{
+
+
+products=
+
+await(
+
+await fetch(
+API
+)
+
+)
+
+.json();
+
+
+
+document
+.getElementById(
+"product"
+)
+
+.innerHTML=
+
+products.map(
+
+x=>
+
+`<option>
+
+${x.name}
+
+</option>`
+
+)
+
+.join('');
+
+
+
+let mods=
+
+await(
+
+await fetch(
+
+API+
+
+"?type=moderators"
+
+)
+
+)
+
+.json();
+
+
+
+document
+.getElementById(
+"moderator"
+)
+
+.innerHTML=
+
+mods.map(
+
+x=>
+
+`<option>
+
+${x}
+
+</option>`
+
+)
+
+.join('');
+
+
+
+update();
+
 }
+
+
+
 function update(){
- let p=products.find(x=>x.name===document.getElementById("product").value)||{price:0,stock:0};
- document.getElementById("price").innerText=p.price;
- document.getElementById("stock").innerText=p.stock;
- let fee=document.getElementById("area").value=="Inside Dhaka"?60:120;
- let qty=+document.getElementById("qty").value||0;
- document.getElementById("bill").innerText=qty*p.price+(document.getElementById("paid").value=="No"?fee:0);
+
+
+let p=
+
+products.find(
+
+x=>
+
+x.name===
+
+document
+.getElementById(
+"product"
+)
+
+.value
+
+)
+
+||
+
+{
+
+price:0,
+
+stock:0
+
+};
+
+
+
+document
+.getElementById(
+"price"
+)
+
+.innerText
+
+=
+
+p.price;
+
+
+
+document
+.getElementById(
+"stock"
+)
+
+.innerText
+
+=
+
+p.stock;
+
+
+
+let fee=
+
+document
+.getElementById(
+"area"
+)
+
+.value
+
+==
+
+"Inside Dhaka"
+
+?
+
+60
+
+:
+
+120;
+
+
+
+let qty=
+
++
+
+document
+.getElementById(
+"qty"
+)
+
+.value
+
+||
+
+0;
+
+
+
+let discount=
+
++
+
+document
+.getElementById(
+"discount"
+)
+
+.value
+
+||
+
+0;
+
+
+
+let total=
+
+
+(
+
+qty*
+
+p.price
+
+)
+
+-
+
+discount
+
++
+
+(
+
+document
+.getElementById(
+"paid"
+)
+
+.value
+
+==
+
+"No"
+
+?
+
+fee
+
+:
+
+0
+
+);
+
+
+
+document
+.getElementById(
+"bill"
+)
+
+.innerText
+
+=
+
+Math.max(
+
+total,
+
+0
+
+);
+
+
+
 }
-["product","qty","area","paid"].forEach(id=>document.getElementById(id)?.addEventListener("change",update));
+
+
+
+[
+
+"product",
+
+"qty",
+
+"area",
+
+"paid",
+
+"discount"
+
+]
+
+.forEach(
+
+id=>
+
+document
+.getElementById(
+id
+)
+
+.addEventListener(
+
+"change",
+
+update
+
+)
+
+);
+
+
+
+
+
 async function submitOrder(){
- const customerName=document.getElementById("name").value;
- const phone=document.getElementById("phone").value;
- const address=document.getElementById("address").value;
- const qty=+document.getElementById("qty").value;
- if(!customerName||!phone||!address||!qty){alert("Fill required fields");return;}
- let p=products.find(x=>x.name===document.getElementById("product").value);
- if(qty>p.stock){alert("Insufficient stock");return;}
- let fee=document.getElementById("area").value=="Inside Dhaka"?60:120;
- await fetch(API,{method:"POST",body:JSON.stringify({
-  name:customerName,
-  phone:phone,
-  address:address,
-  product:document.getElementById("product").value,
-  qty:qty,
-  unitPrice:p.price,
-  deliveryArea:document.getElementById("area").value,
-  deliveryPaid:document.getElementById("paid").value,
-  deliveryFee:fee,
-  finalBill:+document.getElementById("bill").innerText,
-  note:document.getElementById("note").value,
-  moderator:document.getElementById("moderator").value
- })});
- alert("Order saved");
- location.reload();
+
+
+let customer=
+
+document
+.getElementById(
+"name"
+)
+
+.value;
+
+
+
+let phone=
+
+document
+.getElementById(
+"phone"
+)
+
+.value;
+
+
+
+let address=
+
+document
+.getElementById(
+"address"
+)
+
+.value;
+
+
+
+let qty=
+
++
+
+document
+.getElementById(
+"qty"
+)
+
+.value;
+
+
+
+if(
+
+!customer
+
+||
+
+!phone
+
+||
+
+!address
+
+||
+
+!qty
+
+){
+
+alert(
+
+"Fill required fields"
+
+);
+
+return;
+
 }
-</script></body></html>
+
+
+
+let p=
+
+products.find(
+
+x=>
+
+x.name===
+
+document
+.getElementById(
+"product"
+)
+
+.value
+
+);
+
+
+
+if(
+
+qty>
+
+p.stock
+
+){
+
+alert(
+
+"Insufficient stock"
+
+);
+
+return;
+
+}
+
+
+
+let fee=
+
+document
+.getElementById(
+"area"
+)
+
+.value
+
+==
+
+"Inside Dhaka"
+
+?
+
+60
+
+:
+
+120;
+
+
+
+await fetch(
+
+API,
+
+{
+
+method:
+
+"POST",
+
+
+body:
+
+JSON.stringify({
+
+name:
+
+customer,
+
+
+phone:
+
+phone,
+
+
+address:
+
+address,
+
+
+product:
+
+document
+.getElementById(
+"product"
+)
+
+.value,
+
+
+qty:
+
+qty,
+
+
+unitPrice:
+
+p.price,
+
+
+deliveryArea:
+
+document
+.getElementById(
+"area"
+)
+
+.value,
+
+
+deliveryPaid:
+
+document
+.getElementById(
+"paid"
+)
+
+.value,
+
+
+deliveryFee:
+
+fee,
+
+
+discount:
+
++
+
+document
+.getElementById(
+"discount"
+)
+
+.value
+
+||
+
+0,
+
+
+finalBill:
+
++
+
+document
+.getElementById(
+"bill"
+)
+
+.innerText,
+
+
+note:
+
+document
+.getElementById(
+"note"
+)
+
+.value,
+
+
+moderator:
+
+document
+.getElementById(
+"moderator"
+)
+
+.value
+
+
+})
+
+}
+
+);
+
+
+
+alert(
+
+"Order Saved"
+
+);
+
+
+
+location.reload();
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
