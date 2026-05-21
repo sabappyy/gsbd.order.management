@@ -1,57 +1,42 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GSBD Order Management</title>
 
 <style>
 
 body{
-font-family:system-ui;
-background:#f3f6fb;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
 margin:0;
-padding:0;
-}
-
-.wrap{
-max-width:720px;
-margin:auto;
 padding:20px;
 }
 
-.card{
+.container{
+
+max-width:700px;
+margin:auto;
 
 background:white;
 
 padding:25px;
 
-border-radius:24px;
+border-radius:20px;
 
 box-shadow:
-0 10px 30px rgba(
+0 10px 25px rgba(
 0,0,0,.08
 );
 
 }
 
+h2{
 
-.logo{
-
-font-size:30px;
-
-font-weight:bold;
+margin-top:0;
 
 }
-
-
-.sub{
-
-color:#666;
-
-margin-bottom:20px;
-
-}
-
 
 input,
 select,
@@ -62,42 +47,39 @@ width:100%;
 
 padding:14px;
 
-margin:8px 0;
+margin-top:8px;
 
-border-radius:12px;
+margin-bottom:15px;
 
 border:
 
 1px solid #ddd;
 
+border-radius:10px;
+
 box-sizing:border-box;
 
 }
 
+.stats{
 
-.grid{
-
-display:grid;
-
-grid-template-columns:
-
-1fr 1fr;
+display:flex;
 
 gap:10px;
 
 }
 
+.box{
 
-.stat{
+flex:1;
 
 background:#f8fafc;
 
 padding:12px;
 
-border-radius:12px;
+border-radius:10px;
 
 }
-
 
 button{
 
@@ -107,25 +89,13 @@ color:white;
 
 border:none;
 
-font-size:16px;
-
 cursor:pointer;
 
 }
 
-
 button:hover{
 
 opacity:.9;
-
-}
-
-
-.req:after{
-
-content:" *";
-
-color:red;
 
 }
 
@@ -136,26 +106,18 @@ color:red;
 <body>
 
 
-<div class="wrap">
 
-<div class="card">
+<div class="container">
 
+<h2>
 
-<div class="logo">
+GSBD Order Management
 
-GSBD
-
-</div>
+</h2>
 
 
-<div class="sub">
 
-Order Management System
-
-</div>
-
-
-<label class="req">
+<label>
 
 Customer Name
 
@@ -165,7 +127,7 @@ Customer Name
 
 
 
-<label class="req">
+<label>
 
 Phone
 
@@ -175,7 +137,7 @@ Phone
 
 
 
-<label class="req">
+<label>
 
 Address
 
@@ -185,21 +147,29 @@ Address
 
 
 
-<label class="req">
+<label>
 
 Product
 
 </label>
 
-<select id="product"></select>
+<select id="product">
+
+<option>
+
+Loading...
+
+</option>
+
+</select>
 
 
 
-<div class="grid">
+<div class="stats">
 
-<div class="stat">
+<div class="box">
 
-Stock Left:
+Stock:
 
 <b id="stock">
 
@@ -211,7 +181,7 @@ Stock Left:
 
 
 
-<div class="stat">
+<div class="box">
 
 Price:
 
@@ -229,15 +199,18 @@ Price:
 
 
 
-<label class="req">
+<label>
 
 Qty
 
 </label>
 
 <input
-id="qty"
+
 type="number"
+
+id="qty"
+
 >
 
 
@@ -292,15 +265,15 @@ No
 
 <label>
 
-Discount (৳)
+Discount
 
 </label>
 
 <input
 
-id="discount"
-
 type="number"
+
+id="discount"
 
 value="0"
 
@@ -308,13 +281,19 @@ value="0"
 
 
 
-<label class="req">
+<label>
 
 Moderator
 
 </label>
 
 <select id="moderator">
+
+<option>
+
+Loading...
+
+</option>
 
 </select>
 
@@ -332,7 +311,7 @@ Note
 
 
 
-<div class="stat">
+<div class="box">
 
 Final Bill:
 
@@ -348,8 +327,14 @@ Final Bill:
 
 
 
+<br>
+
+
+
 <button
+
 onclick="submitOrder()"
+
 >
 
 Confirm Order
@@ -357,9 +342,9 @@ Confirm Order
 </button>
 
 
-</div>
 
 </div>
+
 
 
 
@@ -374,21 +359,21 @@ let products=[];
 
 
 
-window.onload=
+async function loadData(){
 
-async()=>{
+try{
+
+
+let productData=
+
+await fetch(
+API
+);
 
 
 products=
 
-await(
-
-await fetch(
-API
-)
-
-)
-
+await productData
 .json();
 
 
@@ -402,23 +387,22 @@ document
 
 products.map(
 
-x=>
+p=>
 
-`<option>
+`<option value="${p.name}">
 
-${x.name}
+${p.name}
 
 </option>`
 
 )
 
-.join('');
+.join("");
 
 
 
-let mods=
 
-await(
+let modData=
 
 await fetch(
 
@@ -426,10 +410,12 @@ API+
 
 "?type=moderators"
 
-)
+);
 
-)
 
+let mods=
+
+await modData
 .json();
 
 
@@ -443,30 +429,49 @@ document
 
 mods.map(
 
-x=>
+m=>
 
 `<option>
 
-${x}
+${m}
 
 </option>`
 
 )
 
-.join('');
+.join("");
 
 
 
-update();
+updateBill();
+
+
+}catch(e){
+
+alert(
+
+"Failed loading products"
+
+);
+
+console.log(
+e
+);
+
+}
 
 }
 
 
 
-function update(){
+loadData();
 
 
-let p=
+
+function updateBill(){
+
+
+let selected=
 
 products.find(
 
@@ -497,19 +502,6 @@ stock:0
 
 document
 .getElementById(
-"price"
-)
-
-.innerText
-
-=
-
-p.price;
-
-
-
-document
-.getElementById(
 "stock"
 )
 
@@ -517,30 +509,20 @@ document
 
 =
 
-p.stock;
+selected.stock;
 
 
-
-let fee=
 
 document
 .getElementById(
-"area"
+"price"
 )
 
-.value
+.innerText
 
-==
+=
 
-"Inside Dhaka"
-
-?
-
-60
-
-:
-
-120;
+selected.price;
 
 
 
@@ -578,6 +560,29 @@ document
 
 
 
+let fee=
+
+document
+.getElementById(
+"area"
+)
+
+.value
+
+==
+
+"Inside Dhaka"
+
+?
+
+60
+
+:
+
+120;
+
+
+
 let total=
 
 
@@ -585,7 +590,7 @@ let total=
 
 qty*
 
-p.price
+selected.price
 
 )
 
@@ -630,14 +635,9 @@ document
 =
 
 Math.max(
-
-total,
-
-0
-
+0,
+total
 );
-
-
 
 }
 
@@ -649,17 +649,17 @@ total,
 
 "qty",
 
+"discount",
+
 "area",
 
-"paid",
-
-"discount"
+"paid"
 
 ]
 
 .forEach(
 
-id=>
+id=>{
 
 document
 .getElementById(
@@ -670,9 +670,11 @@ id
 
 "change",
 
-update
+updateBill
 
-)
+);
+
+}
 
 );
 
@@ -693,7 +695,6 @@ document
 .value;
 
 
-
 let phone=
 
 document
@@ -704,7 +705,6 @@ document
 .value;
 
 
-
 let address=
 
 document
@@ -713,7 +713,6 @@ document
 )
 
 .value;
-
 
 
 let qty=
@@ -749,7 +748,7 @@ if(
 
 alert(
 
-"Fill required fields"
+"Fill all required fields"
 
 );
 
@@ -759,7 +758,7 @@ return;
 
 
 
-let p=
+let selected=
 
 products.find(
 
@@ -782,7 +781,7 @@ if(
 
 qty>
 
-p.stock
+selected.stock
 
 ){
 
@@ -831,7 +830,6 @@ method:
 
 "POST",
 
-
 body:
 
 JSON.stringify({
@@ -840,109 +838,61 @@ name:
 
 customer,
 
-
 phone:
 
 phone,
-
 
 address:
 
 address,
 
-
 product:
 
-document
-.getElementById(
-"product"
-)
-
-.value,
-
+selected.name,
 
 qty:
 
 qty,
 
-
 unitPrice:
 
-p.price,
-
+selected.price,
 
 deliveryArea:
 
-document
-.getElementById(
-"area"
-)
-
-.value,
-
+area.value,
 
 deliveryPaid:
 
-document
-.getElementById(
-"paid"
-)
-
-.value,
-
+paid.value,
 
 deliveryFee:
 
 fee,
 
-
 discount:
 
 +
 
-document
-.getElementById(
-"discount"
-)
-
-.value
+discount.value
 
 ||
 
 0,
 
-
 finalBill:
 
 +
 
-document
-.getElementById(
-"bill"
-)
-
-.innerText,
-
+bill.innerText,
 
 note:
 
-document
-.getElementById(
-"note"
-)
-
-.value,
-
+note.value,
 
 moderator:
 
-document
-.getElementById(
-"moderator"
-)
-
-.value
-
+moderator.value
 
 })
 
@@ -969,6 +919,8 @@ location.reload();
 </script>
 
 
+
 </body>
 
 </html>
+```
