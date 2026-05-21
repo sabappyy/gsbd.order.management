@@ -1,22 +1,38 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GSBD Order Management</title>
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1"
+>
+
+<title>
+
+GSBD Order Management
+
+</title>
+
 
 <style>
 
 body{
-font-family:Arial,sans-serif;
+
+font-family:Arial;
+
 background:#f4f7fb;
+
 margin:0;
+
 padding:20px;
+
 }
+
 
 .container{
 
 max-width:700px;
+
 margin:auto;
 
 background:white;
@@ -26,17 +42,14 @@ padding:25px;
 border-radius:20px;
 
 box-shadow:
+
 0 10px 25px rgba(
 0,0,0,.08
 );
 
 }
 
-h2{
 
-margin-top:0;
-
-}
 
 input,
 select,
@@ -47,9 +60,7 @@ width:100%;
 
 padding:14px;
 
-margin-top:8px;
-
-margin-bottom:15px;
+margin:8px 0;
 
 border:
 
@@ -61,6 +72,24 @@ box-sizing:border-box;
 
 }
 
+
+
+button{
+
+background:#111;
+
+color:white;
+
+border:none;
+
+cursor:pointer;
+
+font-size:16px;
+
+}
+
+
+
 .stats{
 
 display:flex;
@@ -68,6 +97,8 @@ display:flex;
 gap:10px;
 
 }
+
+
 
 .box{
 
@@ -81,21 +112,83 @@ border-radius:10px;
 
 }
 
-button{
 
-background:#111;
+
+/* loading */
+
+#loading{
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:
+
+rgba(
+
+0,0,0,.5
+
+);
+
+justify-content:center;
+
+align-items:center;
 
 color:white;
 
-border:none;
+font-size:24px;
 
-cursor:pointer;
+z-index:999;
 
 }
 
-button:hover{
 
-opacity:.9;
+
+/* popup */
+
+#success{
+
+display:none;
+
+position:fixed;
+
+top:50%;
+
+left:50%;
+
+transform:
+
+translate(
+
+-50%,
+
+-50%
+
+);
+
+background:white;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:
+
+0 0 25px rgba(
+0,0,0,.2
+);
+
+z-index:1000;
+
+text-align:center;
 
 }
 
@@ -103,11 +196,53 @@ opacity:.9;
 
 </head>
 
+
 <body>
 
 
 
+<div id="loading">
+
+Submitting Order...
+
+</div>
+
+
+
+<div id="success">
+
+<h2>
+
+✅ খেলা শেষ
+
+</h2>
+
+
+<p>
+
+Order saved successfully
+
+</p>
+
+
+<button
+
+onclick="closePopup()"
+
+>
+
+OK
+
+</button>
+
+
+</div>
+
+
+
+
 <div class="container">
+
 
 <h2>
 
@@ -117,47 +252,47 @@ GSBD Order Management
 
 
 
-<label>
 
-Customer Name
+<input
 
-</label>
+id="name"
 
-<input id="name">
+placeholder="Customer Name"
 
-
-
-<label>
-
-Phone
-
-</label>
-
-<input id="phone">
+>
 
 
 
-<label>
 
-Address
+<input
 
-</label>
+id="phone"
 
-<textarea id="address"></textarea>
+placeholder="Phone"
+
+>
 
 
 
-<label>
 
-Product
+<textarea
 
-</label>
+id="address"
+
+placeholder="Address"
+
+>
+
+</textarea>
+
+
+
 
 <select id="product">
 
 <option>
 
-Loading...
+Loading Products...
 
 </option>
 
@@ -165,7 +300,9 @@ Loading...
 
 
 
+
 <div class="stats">
+
 
 <div class="box">
 
@@ -195,31 +332,25 @@ Price:
 
 </div>
 
+
+
 </div>
 
 
 
-<label>
-
-Qty
-
-</label>
 
 <input
 
+id="qty"
+
 type="number"
 
-id="qty"
+placeholder="Qty"
 
 >
 
 
 
-<label>
-
-Delivery Area
-
-</label>
 
 <select id="area">
 
@@ -228,6 +359,7 @@ Delivery Area
 Inside Dhaka
 
 </option>
+
 
 <option>
 
@@ -239,11 +371,6 @@ Outside Dhaka
 
 
 
-<label>
-
-Delivery Paid?
-
-</label>
 
 <select id="paid">
 
@@ -252,6 +379,7 @@ Delivery Paid?
 Yes
 
 </option>
+
 
 <option>
 
@@ -263,17 +391,14 @@ No
 
 
 
-<label>
-
-Discount
-
-</label>
 
 <input
 
+id="discount"
+
 type="number"
 
-id="discount"
+placeholder="Discount (optional)"
 
 value="0"
 
@@ -281,11 +406,6 @@ value="0"
 
 
 
-<label>
-
-Moderator
-
-</label>
 
 <select id="moderator">
 
@@ -299,15 +419,17 @@ Loading...
 
 
 
-<label>
 
-Note
+<textarea
 
-</label>
+id="note"
 
-<textarea id="note">
+placeholder="Note"
+
+>
 
 </textarea>
+
 
 
 
@@ -342,13 +464,14 @@ Confirm Order
 </button>
 
 
-
 </div>
 
 
 
 
+
 <script>
+
 
 const API=
 
@@ -359,37 +482,30 @@ let products=[];
 
 
 
-async function loadData(){
-
-try{
-
-
-let productData=
-
-await fetch(
-API
-);
+async function load(){
 
 
 products=
 
-await productData
+await(
+
+await fetch(
+API
+)
+
+)
+
 .json();
 
 
 
-document
-.getElementById(
-"product"
-)
-
-.innerHTML=
+product.innerHTML=
 
 products.map(
 
 p=>
 
-`<option value="${p.name}">
+`<option>
 
 ${p.name}
 
@@ -397,12 +513,13 @@ ${p.name}
 
 )
 
-.join("");
+.join('');
 
 
 
+let mods=
 
-let modData=
+await(
 
 await fetch(
 
@@ -410,22 +527,15 @@ API+
 
 "?type=moderators"
 
-);
+)
 
+)
 
-let mods=
-
-await modData
 .json();
 
 
 
-document
-.getElementById(
-"moderator"
-)
-
-.innerHTML=
+moderator.innerHTML=
 
 mods.map(
 
@@ -439,39 +549,26 @@ ${m}
 
 )
 
-.join("");
+.join('');
 
 
 
-updateBill();
+update();
 
-
-}catch(e){
-
-alert(
-
-"Failed loading products"
-
-);
-
-console.log(
-e
-);
-
-}
 
 }
 
 
 
-loadData();
+load();
 
 
 
-function updateBill(){
+
+function update(){
 
 
-let selected=
+let p=
 
 products.find(
 
@@ -479,12 +576,7 @@ x=>
 
 x.name===
 
-document
-.getElementById(
-"product"
-)
-
-.value
+product.value
 
 )
 
@@ -500,76 +592,21 @@ stock:0
 
 
 
-document
-.getElementById(
-"stock"
-)
+stock.innerText=
 
-.innerText
-
-=
-
-selected.stock;
+p.stock;
 
 
 
-document
-.getElementById(
-"price"
-)
+price.innerText=
 
-.innerText
-
-=
-
-selected.price;
-
-
-
-let qty=
-
-+
-
-document
-.getElementById(
-"qty"
-)
-
-.value
-
-||
-
-0;
-
-
-
-let discount=
-
-+
-
-document
-.getElementById(
-"discount"
-)
-
-.value
-
-||
-
-0;
+p.price;
 
 
 
 let fee=
 
-document
-.getElementById(
-"area"
-)
-
-.value
-
-==
+area.value==
 
 "Inside Dhaka"
 
@@ -583,31 +620,50 @@ document
 
 
 
+let discountValue=
+
++
+
+discount.value
+
+||
+
+0;
+
+
+
 let total=
 
 
 (
 
-qty*
+(
 
-selected.price
++
+
+qty.value
+
+||
+
+0
+
+)
+
+*
+
+p.price
 
 )
 
 -
 
-discount
+discountValue
 
 +
 
 (
 
-document
-.getElementById(
-"paid"
-)
-
-.value
+paid.value
 
 ==
 
@@ -625,58 +681,51 @@ fee
 
 
 
-document
-.getElementById(
-"bill"
-)
-
-.innerText
-
-=
+bill.innerText=
 
 Math.max(
+
 0,
+
 total
+
 );
 
+
 }
+
 
 
 
 [
 
-"product",
+product,
 
-"qty",
+qty,
 
-"discount",
+area,
 
-"area",
+paid,
 
-"paid"
+discount
 
 ]
 
 .forEach(
 
-id=>{
+x=>
 
-document
-.getElementById(
-id
-)
-
-.addEventListener(
+x.addEventListener(
 
 "change",
 
-updateBill
+update
+
+)
 
 );
 
-}
 
-);
 
 
 
@@ -685,76 +734,51 @@ updateBill
 async function submitOrder(){
 
 
-let customer=
-
-document
-.getElementById(
-"name"
-)
-
-.value;
-
-
-let phone=
-
-document
-.getElementById(
-"phone"
-)
-
-.value;
-
-
-let address=
-
-document
-.getElementById(
-"address"
-)
-
-.value;
-
-
-let qty=
-
-+
-
-document
-.getElementById(
-"qty"
-)
-
-.value;
-
-
 
 if(
 
-!customer
+!name.value.trim()
 
 ||
 
-!phone
+!phone.value.trim()
 
 ||
 
-!address
+!address.value.trim()
 
 ||
 
-!qty
+!qty.value
+
+||
+
+!product.value
+
+||
+
+!moderator.value
+
+||
+
+!area.value
+
+||
+
+!paid.value
 
 ){
 
 alert(
 
-"Fill all required fields"
+"Please fill all required fields"
 
 );
 
 return;
 
 }
+
 
 
 
@@ -766,12 +790,7 @@ x=>
 
 x.name===
 
-document
-.getElementById(
-"product"
-)
-
-.value
+product.value
 
 );
 
@@ -779,7 +798,11 @@ document
 
 if(
 
-qty>
++
+
+qty.value
+
+>
 
 selected.stock
 
@@ -797,16 +820,16 @@ return;
 
 
 
+loading.style.display=
+
+"flex";
+
+
+
+
 let fee=
 
-document
-.getElementById(
-"area"
-)
-
-.value
-
-==
+area.value==
 
 "Inside Dhaka"
 
@@ -817,6 +840,62 @@ document
 :
 
 120;
+
+
+
+
+let discountValue=
+
++
+
+discount.value
+
+||
+
+0;
+
+
+
+
+let finalBill=
+
+(
+
++
+
+qty.value
+
+*
+
+selected.price
+
+)
+
+-
+
+discountValue
+
++
+
+(
+
+paid.value
+
+==
+
+"No"
+
+?
+
+fee
+
+:
+
+0
+
+);
+
+
 
 
 
@@ -836,23 +915,25 @@ JSON.stringify({
 
 name:
 
-customer,
+name.value,
 
 phone:
 
-phone,
+phone.value,
 
 address:
 
-address,
+address.value,
 
 product:
 
-selected.name,
+product.value,
 
 qty:
 
-qty,
++
+
+qty.value,
 
 unitPrice:
 
@@ -872,19 +953,11 @@ fee,
 
 discount:
 
-+
-
-discount.value
-
-||
-
-0,
+discountValue,
 
 finalBill:
 
-+
-
-bill.innerText,
+finalBill,
 
 note:
 
@@ -902,18 +975,35 @@ moderator.value
 
 
 
-alert(
 
-"Order Saved"
+loading.style.display=
 
-);
+"none";
 
+
+success.style.display=
+
+"block";
+
+
+}
+
+
+
+
+function closePopup(){
+
+
+success.style.display=
+
+"none";
 
 
 location.reload();
 
 
 }
+
 
 
 </script>
@@ -923,4 +1013,3 @@ location.reload();
 </body>
 
 </html>
-```
