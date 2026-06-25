@@ -5,966 +5,346 @@
 <title>GSBD Order Management</title>
 
 <style>
-
 body{
-font-family:Arial,sans-serif;
-background:#f4f7fb;
-padding:20px;
-margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  padding:20px;
+  margin:0;
 }
 
 .container{
-max-width:700px;
-margin:auto;
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
+  max-width:700px;
+  margin:auto;
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
 h2{
-margin-bottom:5px;
+  margin-bottom:5px;
 }
 
 .sub{
-color:#666;
-margin-bottom:25px;
+  color:#666;
+  margin-bottom:25px;
 }
 
 label{
-display:block;
-font-weight:600;
-margin-top:12px;
-margin-bottom:5px;
+  display:block;
+  font-weight:600;
+  margin-top:12px;
+  margin-bottom:5px;
 }
 
 input,
 select,
 textarea,
 button{
-
-width:100%;
-padding:14px;
-border:1px solid #ddd;
-border-radius:10px;
-box-sizing:border-box;
-margin-bottom:5px;
-
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  box-sizing:border-box;
+  margin-bottom:5px;
 }
 
 textarea{
-min-height:80px;
+  min-height:80px;
 }
 
 .stats{
-display:flex;
-gap:10px;
-margin-top:10px;
+  display:flex;
+  gap:10px;
+  margin-top:10px;
 }
 
 .box{
-flex:1;
-background:#f8fafc;
-padding:14px;
-border-radius:10px;
+  flex:1;
+  background:#f8fafc;
+  padding:14px;
+  border-radius:10px;
 }
 
 .error{
-
-display:none;
-
-color:red;
-
-font-size:12px;
-
-margin-bottom:10px;
-
+  display:none;
+  color:red;
+  font-size:12px;
+  margin-bottom:10px;
 }
 
 .invalid{
-
-border:
-1px solid red !important;
-
+  border:1px solid red !important;
 }
 
-
 button{
-
-background:#111;
-
-color:white;
-
-border:none;
-
-padding:15px;
-
-font-size:16px;
-
-cursor:pointer;
-
-margin-top:20px;
-
+  background:#111;
+  color:white;
+  border:none;
+  padding:15px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:20px;
 }
 
 button:hover{
-opacity:.9;
+  opacity:.9;
 }
-
-
 
 #loading{
-
-display:none;
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:
-rgba(
-0,0,0,.5
-);
-
-justify-content:center;
-
-align-items:center;
-
-color:white;
-
-font-size:24px;
-
-z-index:999;
-
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.5);
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size:24px;
+  z-index:999;
 }
-
-
 
 #success{
-
-display:none;
-
-position:fixed;
-
-top:50%;
-
-left:50%;
-
-transform:
-translate(
--50%,
--50%
-);
-
-background:white;
-
-padding:30px;
-
-border-radius:20px;
-
-text-align:center;
-
-box-shadow:
-0 0 30px rgba(
-0,0,0,.2
-);
-
-z-index:1000;
-
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(0,0,0,.2);
+  z-index:1000;
 }
-
 </style>
 </head>
 
-
 <body>
 
-
-
 <div id="loading">
-
-Submitting Order...
-
+  Submitting Order...
 </div>
-
-
 
 <div id="success">
-
-<h2>
-
-✅ খেলা শেষ...
-
-</h2>
-
-<p>
-
-Order saved successfully
-
-</p>
-
-<button onclick="closePopup()">
-
-OK
-
-</button>
-
+  <h2>✅ খেলা শেষ...</h2>
+  <p>Order saved successfully</p>
+  <button onclick="closePopup()">OK</button>
 </div>
-
-
-
 
 <div class="container">
+  <h2>GSBD Order Management</h2>
+  <p class="sub">Order Confirmation & Inventory Management</p>
 
-<h2>
+  <label>Customer Name *</label>
+  <input id="name" placeholder="Enter customer name">
+  <small id="name-error" class="error">Required field</small>
 
-GSBD Order Management
+  <label>Phone Number *</label>
+  <input id="phone" placeholder="Enter phone number">
+  <small id="phone-error" class="error">Required field</small>
 
-</h2>
+  <label>Customer Address *</label>
+  <textarea id="address" placeholder="Enter address"></textarea>
+  <small id="address-error" class="error">Required field</small>
 
-<p class="sub">
+  <label>Product *</label>
+  <select id="product">
+    <option>Loading...</option>
+  </select>
+  <small id="product-error" class="error">Required field</small>
 
-Order Confirmation & Inventory Management
+  <div class="stats">
+    <div class="box">
+      Stock Left: <b id="stock">0</b>
+    </div>
 
-</p>
+    <div class="box">
+      Unit Price: ৳ <b id="price">0</b>
+    </div>
+  </div>
 
+  <label>Quantity *</label>
+  <input id="qty" type="number" placeholder="Enter quantity">
+  <small id="qty-error" class="error">Required field</small>
 
+  <label>Delivery Area *</label>
+  <select id="area">
+    <option>Inside Dhaka</option>
+    <option>Outside Dhaka</option>
+  </select>
 
+  <label>Customer Paid Delivery? *</label>
+  <select id="paid">
+    <option value="">Select option</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+  <small id="paid-error" class="error">Required field</small>
 
-<label>
+  <label>Discount (৳)</label>
+  <input id="discount" type="number" placeholder="Optional">
 
-Customer Name *
+  <label>Moderator *</label>
+  <select id="moderator">
+    <option>Loading...</option>
+  </select>
+  <small id="moderator-error" class="error">Required field</small>
 
-</label>
+  <label>Order Notes</label>
+  <textarea id="note" placeholder="Optional"></textarea>
 
-<input
-id="name"
-placeholder="Enter customer name"
->
+  <div class="box">
+    Final Bill: ৳ <b id="bill">0</b>
+  </div>
 
-<small
-id="name-error"
-class="error"
->
-
-Required field
-
-</small>
-
-
-
-
-<label>
-
-Phone Number *
-
-</label>
-
-<input
-id="phone"
-placeholder="Enter phone number"
->
-
-<small
-id="phone-error"
-class="error"
->
-
-Required field
-
-</small>
-
-
-
-
-<label>
-
-Customer Address *
-
-</label>
-
-<textarea
-id="address"
-placeholder="Enter address"
-></textarea>
-
-<small
-id="address-error"
-class="error"
->
-
-Required field
-
-</small>
-
-
-
-
-<label>
-
-Product *
-
-</label>
-
-<select id="product">
-
-<option>
-
-Loading...
-
-</option>
-
-</select>
-
-<small
-id="product-error"
-class="error"
->
-
-Required field
-
-</small>
-
-
-
-
-<div class="stats">
-
-<div class="box">
-
-Stock Left:
-
-<b id="stock">
-
-0
-
-</b>
-
+  <button onclick="submitOrder()">Confirm Order</button>
 </div>
-
-
-<div class="box">
-
-Unit Price:
-
-৳
-
-<b id="price">
-
-0
-
-</b>
-
-</div>
-
-</div>
-
-
-
-
-<label>
-
-Quantity *
-
-</label>
-
-<input
-id="qty"
-type="number"
-placeholder="Enter quantity"
->
-
-<small
-id="qty-error"
-class="error"
->
-
-Required field
-
-</small>
-
-
-
-
-<label>
-
-Delivery Area *
-
-</label>
-
-<select id="area">
-
-<option>
-
-Inside Dhaka
-
-</option>
-
-<option>
-
-Outside Dhaka
-
-</option>
-
-</select>
-
-
-
-
-<label>
-
-Customer Paid Delivery? *
-
-</label>
-
-<select id="paid">
-
-<option value="">
-
-Select option
-
-</option>
-
-<option>
-
-Yes
-
-</option>
-
-<option>
-
-No
-
-</option>
-
-</select>
-
-<small
-id="paid-error"
-class="error"
->
-
-Required field
-
-</small>
-
-
-
-
-<label>
-
-Discount (৳)
-
-</label>
-
-<input
-id="discount"
-type="number"
-placeholder="Optional"
->
-
-
-
-
-<label>
-
-Moderator *
-
-</label>
-
-<select id="moderator">
-
-<option>
-
-Loading...
-
-</option>
-
-</select>
-
-<small
-id="moderator-error"
-class="error"
->
-
-Required field
-
-</small>
-
-
-
-
-<label>
-
-Order Notes
-
-</label>
-
-<textarea
-id="note"
-placeholder="Optional"
-></textarea>
-
-
-
-
-<div class="box">
-
-Final Bill:
-
-৳
-
-<b id="bill">
-
-0
-
-</b>
-
-</div>
-
-
-
-
-<button
-
-onclick="submitOrder()"
-
->
-
-Confirm Order
-
-</button>
-
-
-
-</div>
-
-
-
 
 <script>
+const API = "https://script.google.com/macros/s/AKfycbxDeyvSbDNY6_CqQYD4ao08aPDzhMHLK9xB-gsOG3ITvjIQa4S_fqctAWZL7szJovRrKQ/exec";
 
-const API=
-"https://script.google.com/macros/s/AKfycbxDeyvSbDNY6_CqQYD4ao08aPDzhMHLK9xB-gsOG3ITvjIQa4S_fqctAWZL7szJovRrKQ/exec";
+let products = [];
 
-let products=[];
+async function load() {
+  products = await (await fetch(API)).json();
 
+  product.innerHTML = products.map(p => {
+    const optionValue = (p.productCode && String(p.productCode).trim() !== "")
+      ? String(p.productCode).trim()
+      : p.name;
 
+    return `<option value="${optionValue}">${p.name}</option>`;
+  }).join('');
 
-async function load(){
+  let mods = await (await fetch(API + "?type=moderators")).json();
 
-products=
-await(
-await fetch(API)
-).json();
+  moderator.innerHTML = mods.map(
+    m => `<option>${m}</option>`
+  ).join('');
 
-
-product.innerHTML=
-
-products.map(
-
-p=>
-
-`<option>
-
-${p.name}
-
-</option>`
-
-)
-
-.join('');
-
-
-
-let mods=
-await(
-await fetch(
-API+"?type=moderators"
-)
-).json();
-
-
-moderator.innerHTML=
-
-mods.map(
-
-m=>
-
-`<option>
-
-${m}
-
-</option>`
-
-)
-
-.join('');
-
-
-
-update();
-
+  update();
 }
-
 
 load();
 
-
-
-function update(){
-
-let p=
-
-products.find(
-
-x=>
-
-x.name===
-
-product.value
-
-)
-
-||
-
-{
-price:0,
-stock:0
-};
-
-
-stock.innerText=
-p.stock;
-
-price.innerText=
-p.price;
-
-
-let fee=
-
-area.value==
-"Inside Dhaka"
-
-?
-
-60
-
-:
-
-120;
-
-
-let discountValue=
-
-+
-discount.value
-
-||
-
-0;
-
-
-let total=
-
-(
-
-(
-
-+
-qty.value
-
-||
-
-0
-
-)
-
-*
-
-p.price
-
-)
-
--
-
-discountValue
-
-+
-
-(
-
-paid.value==
-"No"
-
-?
-
-fee
-
-:
-
-0
-
-);
-
-
-bill.innerText=
-Math.max(
-0,
-total
-);
-
+function getSelectedProduct() {
+  return products.find(x => {
+    const key = (x.productCode && String(x.productCode).trim() !== "")
+      ? String(x.productCode).trim()
+      : x.name;
+    return key === product.value;
+  }) || { name:"", productCode:"", price:0, stock:0 };
 }
 
+function update() {
+  let p = getSelectedProduct();
 
+  stock.innerText = p.stock || 0;
+  price.innerText = p.price || 0;
 
-document.addEventListener(
-"change",
-update
-);
+  let fee = area.value == "Inside Dhaka" ? 60 : 120;
+  let discountValue = +discount.value || 0;
 
+  let total = ((+qty.value || 0) * (Number(p.price) || 0))
+            - discountValue
+            + (paid.value == "No" ? fee : 0);
 
-
-function validate(
-
-id,
-
-errorId
-
-){
-
-let field=
-document.getElementById(
-id
-);
-
-let error=
-document.getElementById(
-errorId
-);
-
-
-if(
-!field.value.trim()
-){
-
-field.classList.add(
-"invalid"
-);
-
-error.style.display=
-"block";
-
-return false;
-
+  bill.innerText = Math.max(0, total);
 }
 
+document.addEventListener("change", update);
+document.addEventListener("input", update);
 
-field.classList.remove(
-"invalid"
-);
+function validate(id, errorId) {
+  let field = document.getElementById(id);
+  let error = document.getElementById(errorId);
 
-error.style.display=
-"none";
+  if (!field.value.trim()) {
+    field.classList.add("invalid");
+    error.style.display = "block";
+    return false;
+  }
 
-return true;
-
+  field.classList.remove("invalid");
+  error.style.display = "none";
+  return true;
 }
 
+async function submitOrder() {
+  let valid = true;
 
+  valid &= validate("name", "name-error");
+  valid &= validate("phone", "phone-error");
+  valid &= validate("address", "address-error");
+  valid &= validate("qty", "qty-error");
+  valid &= validate("moderator", "moderator-error");
+  valid &= validate("paid", "paid-error");
 
+  if (!valid) return;
 
-async function submitOrder(){
+  let selected = getSelectedProduct();
 
+  if (!selected.name) {
+    alert("Product not found");
+    return;
+  }
 
-let valid=true;
+  if (+qty.value > Number(selected.stock || 0)) {
+    alert("Insufficient stock");
+    return;
+  }
 
+  loading.style.display = "flex";
 
-valid &= validate(
-"name",
-"name-error"
-);
+  let fee = area.value == "Inside Dhaka" ? 60 : 120;
 
-valid &= validate(
-"phone",
-"phone-error"
-);
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      body: JSON.stringify({
+        name: document.getElementById("name").value,
+        phone: phone.value,
+        address: address.value,
+        product: selected.name,
+        productCode: selected.productCode || "",
+        qty: +qty.value,
+        unitPrice: Number(selected.price) || 0,
+        deliveryArea: area.value,
+        deliveryPaid: paid.value,
+        deliveryFee: fee,
+        discount: +discount.value || 0,
+        finalBill: +bill.innerText,
+        note: note.value,
+        moderator: moderator.value
+      })
+    });
 
-valid &= validate(
-"address",
-"address-error"
-);
+    const result = await res.json();
 
-valid &= validate(
-"qty",
-"qty-error"
-);
+    loading.style.display = "none";
 
-valid &= validate(
-"moderator",
-"moderator-error"
-);
+    if (!result.success) {
+      alert(result.message || "Order failed");
+      return;
+    }
 
-valid &= validate(
-"paid",
-"paid-error"
-);
+    success.style.display = "block";
 
-
-
-if(!valid){
-
-return;
-
+  } catch (err) {
+    loading.style.display = "none";
+    alert("Something went wrong while submitting the order.");
+    console.error(err);
+  }
 }
 
-
-
-let selected=
-
-products.find(
-
-x=>
-
-x.name===
-
-product.value
-
-);
-
-
-
-if(
-
-+
-qty.value
-
->
-
-selected.stock
-
-){
-
-alert(
-"Insufficient stock"
-);
-
-return;
-
+function closePopup() {
+  success.style.display = "none";
+  location.reload();
 }
-
-
-
-loading.style.display=
-"flex";
-
-
-let fee=
-
-area.value==
-"Inside Dhaka"
-
-?
-
-60
-
-:
-
-120;
-
-
-
-await fetch(
-
-API,
-
-{
-
-method:
-"POST",
-
-body:
-
-JSON.stringify({
-
-name:
-
-document
-.getElementById(
-"name"
-)
-
-.value,
-
-phone:
-phone.value,
-
-address:
-address.value,
-
-product:
-product.value,
-
-qty:
-+qty.value,
-
-unitPrice:
-selected.price,
-
-deliveryArea:
-area.value,
-
-deliveryPaid:
-paid.value,
-
-deliveryFee:
-fee,
-
-discount:
-+discount.value||0,
-
-finalBill:
-+bill.innerText,
-
-note:
-note.value,
-
-moderator:
-moderator.value
-
-})
-
-}
-
-);
-
-
-
-loading.style.display=
-"none";
-
-success.style.display=
-"block";
-
-}
-
-
-
-function closePopup(){
-
-success.style.display=
-"none";
-
-location.reload();
-
-}
-
 </script>
-
 
 </body>
 </html>
