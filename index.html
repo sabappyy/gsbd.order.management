@@ -3,444 +3,492 @@
 
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<title>GSBD Order Management</title>
+  <title>GSBD Order Management</title>
 
-<style>
 
-*{
-  box-sizing:border-box;
-}
+  <style>
 
-body{
+    * {
+      box-sizing: border-box;
+    }
 
-  margin:0;
 
-  padding:20px;
+    body {
 
-  background:#f4f7fb;
+      margin: 0;
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+      padding: 30px 15px;
 
-  color:#111;
+      background: #f4f7fb;
 
-}
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-.container{
+      color: #111;
 
-  width:100%;
+    }
 
-  max-width:700px;
 
-  margin:0 auto;
+    .container {
 
-  background:#fff;
+      width: 100%;
 
-  padding:28px;
+      max-width: 680px;
 
-  border-radius:20px;
+      margin: 0 auto;
 
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.08);
+      background: #fff;
 
-}
+      border-radius: 18px;
 
-h1{
+      padding: 28px;
 
-  margin:0 0 6px;
+      box-shadow:
+        0 8px 30px
+        rgba(0,0,0,0.08);
 
-  font-size:24px;
+    }
 
-}
 
-.subtitle{
+    h1 {
 
-  margin:0 0 25px;
+      margin: 0 0 6px;
 
-  color:#666;
+      font-size: 25px;
 
-  font-size:14px;
+    }
 
-}
 
-label{
+    .subtitle {
 
-  display:block;
+      color: #777;
 
-  margin:
-    14px 0 6px;
+      margin-bottom: 25px;
 
-  font-size:14px;
+      font-size: 14px;
 
-  font-weight:700;
+    }
 
-}
 
-input,
-textarea,
-select{
+    .field {
 
-  width:100%;
+      margin-bottom: 17px;
 
-  padding:13px 14px;
+    }
 
-  border:1px solid #d9dfe7;
 
-  border-radius:10px;
+    label {
 
-  background:#fff;
+      display: block;
 
-  font-size:14px;
+      font-weight: 600;
 
-  outline:none;
+      margin-bottom: 7px;
 
-}
+      font-size: 14px;
 
-input:focus,
-textarea:focus,
-select:focus{
+    }
 
-  border-color:#111;
 
-}
+    input,
+    textarea,
+    select {
 
-textarea{
+      width: 100%;
 
-  min-height:90px;
+      border: 1px solid #d8dce3;
 
-  resize:vertical;
+      border-radius: 9px;
 
-}
+      padding: 13px;
 
-.search-wrap{
+      font-size: 14px;
 
-  position:relative;
+      outline: none;
 
-}
+      background: #fff;
 
-.search-icon{
+    }
 
-  position:absolute;
 
-  right:13px;
+    input:focus,
+    textarea:focus,
+    select:focus {
 
-  top:50%;
+      border-color: #111;
 
-  transform:
-    translateY(-50%);
+    }
 
-  font-size:18px;
 
-  pointer-events:none;
+    textarea {
 
-}
+      min-height: 85px;
 
-.search-status{
+      resize: vertical;
 
-  margin-top:7px;
+    }
 
-  color:#666;
 
-  font-size:12px;
+    .required {
 
-}
+      color: #e00000;
 
-.product-select{
+    }
 
-  margin-top:7px;
 
-}
+    .search-wrapper {
 
-.product-info{
+      position: relative;
 
-  display:grid;
+    }
 
-  grid-template-columns:
-    repeat(3,1fr);
 
-  gap:10px;
+    .search-icon {
 
-  margin-top:10px;
+      position: absolute;
 
-}
+      right: 13px;
 
-.info-box{
+      top: 50%;
 
-  background:#f7f9fc;
+      transform:
+        translateY(-50%);
 
-  border-radius:10px;
+      font-size: 18px;
 
-  padding:13px;
+      pointer-events: none;
 
-}
+    }
 
-.info-title{
 
-  display:block;
+    .search-status {
 
-  color:#777;
+      margin-top: 6px;
 
-  font-size:11px;
+      font-size: 12px;
 
-  margin-bottom:5px;
+      color: #777;
 
-}
+      min-height: 16px;
 
-.info-value{
+    }
 
-  font-weight:700;
 
-  font-size:14px;
+    .product-select {
 
-  word-break:break-word;
+      margin-top: 3px;
 
-}
+    }
 
-.two-col{
 
-  display:grid;
+    .product-info {
 
-  grid-template-columns:
-    1fr 1fr;
+      display: grid;
 
-  gap:10px;
+      grid-template-columns:
+        repeat(3, 1fr);
 
-}
+      gap: 8px;
 
-.bill{
+      margin-top: 10px;
 
-  margin-top:20px;
+    }
 
-  padding:17px;
 
-  background:#f4f7fb;
+    .info-box {
 
-  border-radius:12px;
+      background: #f6f8fa;
 
-  font-size:17px;
+      border-radius: 9px;
 
-}
+      padding: 12px;
 
-.bill strong{
+      min-height: 55px;
 
-  float:right;
+    }
 
-}
 
-button{
+    .info-label {
 
-  width:100%;
+      font-size: 11px;
 
-  border:0;
+      color: #777;
 
-  border-radius:10px;
+      margin-bottom: 4px;
 
-  padding:15px;
+    }
 
-  margin-top:18px;
 
-  background:#111;
+    .info-value {
 
-  color:#fff;
+      font-weight: 600;
 
-  font-size:16px;
+      font-size: 14px;
 
-  font-weight:700;
+    }
 
-  cursor:pointer;
 
-}
+    .two-column {
 
-button:hover{
+      display: grid;
 
-  opacity:.92;
+      grid-template-columns:
+        1fr 1fr;
 
-}
+      gap: 12px;
 
-button:disabled{
+    }
 
-  opacity:.5;
 
-  cursor:not-allowed;
+    .bill {
 
-}
+      margin-top: 12px;
 
-.error{
+      padding: 15px;
 
-  color:#d00;
+      background: #f6f8fa;
 
-  font-size:12px;
+      border-radius: 9px;
 
-  margin-top:5px;
+      font-size: 17px;
 
-  display:none;
+      font-weight: 600;
 
-}
+    }
 
-.invalid{
 
-  border-color:#d00 !important;
+    .bill-row {
 
-}
+      display: flex;
 
-.loading-overlay{
+      justify-content: space-between;
 
-  display:none;
+      margin-bottom: 7px;
 
-  position:fixed;
+      font-size: 13px;
 
-  inset:0;
+      font-weight: 400;
 
-  background:
-    rgba(0,0,0,.55);
+      color: #555;
 
-  z-index:9999;
+    }
 
-  align-items:center;
 
-  justify-content:center;
+    .bill-total {
 
-}
+      display: flex;
 
-.loading-box{
+      justify-content: space-between;
 
-  background:#fff;
+      padding-top: 8px;
 
-  padding:25px 30px;
+      border-top:
+        1px solid #ddd;
 
-  border-radius:15px;
+      font-size: 17px;
 
-  text-align:center;
+      color: #111;
 
-}
+      font-weight: 700;
 
-.spinner{
+    }
 
-  width:35px;
 
-  height:35px;
+    button {
 
-  border:
-    4px solid #ddd;
+      width: 100%;
 
-  border-top-color:#111;
+      border: 0;
 
-  border-radius:50%;
+      border-radius: 9px;
 
-  animation:
-    spin .8s linear infinite;
+      padding: 14px;
 
-  margin:
-    0 auto 15px;
+      font-size: 15px;
 
-}
+      font-weight: 600;
 
-@keyframes spin{
+      cursor: pointer;
 
-  to{
-    transform:rotate(360deg);
-  }
+    }
 
-}
 
-.modal{
+    .submit-btn {
 
-  display:none;
+      background: #111;
 
-  position:fixed;
+      color: #fff;
 
-  inset:0;
+      margin-top: 15px;
 
-  z-index:10000;
+    }
 
-  background:
-    rgba(0,0,0,.55);
 
-  align-items:center;
+    .submit-btn:hover {
 
-  justify-content:center;
+      background: #222;
 
-  padding:20px;
+    }
 
-}
 
-.modal-box{
+    .submit-btn:disabled {
 
-  width:100%;
+      background: #999;
 
-  max-width:430px;
+      cursor: not-allowed;
 
-  background:#fff;
+    }
 
-  border-radius:20px;
 
-  padding:28px;
+    .loading {
 
-  text-align:center;
+      opacity: 0.65;
 
-  box-shadow:
-    0 20px 50px rgba(0,0,0,.2);
+      pointer-events: none;
 
-}
+    }
 
-.success-icon{
 
-  font-size:45px;
+    .modal-overlay {
 
-  margin-bottom:10px;
+      position: fixed;
 
-}
+      inset: 0;
 
-.modal-box h2{
+      background:
+        rgba(0,0,0,0.55);
 
-  margin:0 0 10px;
+      display: none;
 
-}
+      align-items: center;
 
-.modal-details{
+      justify-content: center;
 
-  color:#555;
+      padding: 20px;
 
-  line-height:1.7;
+      z-index: 9999;
 
-}
+    }
 
-.modal button{
 
-  margin-top:20px;
+    .modal {
 
-}
+      width: 100%;
 
-@media(max-width:600px){
+      max-width: 430px;
 
-  body{
-    padding:10px;
-  }
+      background: #fff;
 
-  .container{
-    padding:20px;
-  }
+      border-radius: 18px;
 
-  .product-info{
-    grid-template-columns:1fr 1fr;
-  }
+      padding: 25px;
 
-  .two-col{
-    grid-template-columns:1fr;
-  }
+      text-align: center;
 
-}
+      box-shadow:
+        0 15px 50px
+        rgba(0,0,0,0.25);
 
-</style>
+    }
+
+
+    .modal-icon {
+
+      font-size: 30px;
+
+      margin-bottom: 8px;
+
+    }
+
+
+    .modal h2 {
+
+      margin:
+        0 0 10px;
+
+      font-size: 21px;
+
+    }
+
+
+    .modal p {
+
+      margin: 6px 0;
+
+      color: #555;
+
+      font-size: 14px;
+
+    }
+
+
+    .modal-btn {
+
+      background: #111;
+
+      color: #fff;
+
+      margin-top: 18px;
+
+    }
+
+
+    .error-modal h2 {
+
+      color: #c40000;
+
+    }
+
+
+    @media (
+      max-width: 600px
+    ) {
+
+      body {
+
+        padding: 12px;
+
+      }
+
+
+      .container {
+
+        padding: 20px;
+
+        border-radius: 14px;
+
+      }
+
+
+      .two-column {
+
+        grid-template-columns:
+          1fr;
+
+        gap: 0;
+
+      }
+
+
+      .product-info {
+
+        grid-template-columns:
+          1fr 1fr 1fr;
+
+      }
+
+    }
+
+  </style>
 
 </head>
 
@@ -448,1508 +496,1837 @@ button:disabled{
 <body>
 
 
-<!-- LOADING -->
+  <div class="container">
 
-<div
-  id="loadingOverlay"
-  class="loading-overlay"
->
+    <h1>
+      GSBD Order Management
+    </h1>
 
-  <div class="loading-box">
 
-    <div class="spinner"></div>
-
-    <div>
-      Saving order...
+    <div class="subtitle">
+      Order Confirmation & Inventory Management
     </div>
 
-  </div>
 
-</div>
+    <!-- CUSTOMER NAME -->
 
+    <div class="field">
 
-<!-- SUCCESS -->
+      <label>
+        Customer Name
+        <span class="required">*</span>
+      </label>
 
-<div
-  id="successModal"
-  class="modal"
->
+      <input
+        id="customerName"
+        type="text"
+        placeholder="Enter customer name"
+      >
 
-  <div class="modal-box">
-
-    <div class="success-icon">
-      ✅
     </div>
 
-    <h2>
-      Order Saved
-    </h2>
 
-    <div
-      id="successDetails"
-      class="modal-details"
-    ></div>
+    <!-- PHONE -->
+
+    <div class="field">
+
+      <label>
+        Phone Number
+        <span class="required">*</span>
+      </label>
+
+      <input
+        id="phone"
+        type="text"
+        placeholder="Enter phone number"
+      >
+
+    </div>
+
+
+    <!-- ADDRESS -->
+
+    <div class="field">
+
+      <label>
+        Customer Address
+        <span class="required">*</span>
+      </label>
+
+      <textarea
+        id="address"
+        placeholder="Enter address"
+      ></textarea>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="field">
+
+      <label>
+        Search Product
+      </label>
+
+
+      <div class="search-wrapper">
+
+        <input
+          id="productSearch"
+          type="text"
+          placeholder="Type product name, brand or code..."
+          autocomplete="off"
+        >
+
+        <span class="search-icon">
+          🔍
+        </span>
+
+      </div>
+
+
+      <div
+        id="searchStatus"
+        class="search-status"
+      >
+        Loading products...
+      </div>
+
+    </div>
+
+
+    <!-- PRODUCT -->
+
+    <div class="field">
+
+      <label>
+        Product
+        <span class="required">*</span>
+      </label>
+
+
+      <select
+        id="productSelect"
+        class="product-select"
+      >
+
+        <option value="">
+          Loading...
+        </option>
+
+      </select>
+
+
+      <div class="product-info">
+
+        <div class="info-box">
+
+          <div class="info-label">
+            Colour
+          </div>
+
+          <div
+            id="colour"
+            class="info-value"
+          >
+            -
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-label">
+            Stock Left
+          </div>
+
+          <div
+            id="stock"
+            class="info-value"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-label">
+            Selling Price
+          </div>
+
+          <div
+            id="unitPrice"
+            class="info-value"
+          >
+            ৳0
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- QUANTITY -->
+
+    <div class="field">
+
+      <label>
+        Quantity
+        <span class="required">*</span>
+      </label>
+
+      <input
+        id="quantity"
+        type="number"
+        min="1"
+        step="1"
+        placeholder="Enter quantity"
+      >
+
+    </div>
+
+
+    <!-- DELIVERY -->
+
+    <div class="two-column">
+
+      <div class="field">
+
+        <label>
+          Delivery Area
+          <span class="required">*</span>
+        </label>
+
+        <select id="deliveryArea">
+
+          <option value="Inside Dhaka">
+            Inside Dhaka
+          </option>
+
+          <option value="Outside Dhaka">
+            Outside Dhaka
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Customer Paid Delivery?
+          <span class="required">*</span>
+        </label>
+
+        <select id="deliveryPaid">
+
+          <option value="">
+            Select option
+          </option>
+
+          <option value="Yes">
+            Yes
+          </option>
+
+          <option value="No">
+            No
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <!-- DISCOUNT -->
+
+    <div class="field">
+
+      <label>
+        Discount (৳)
+      </label>
+
+      <input
+        id="discount"
+        type="number"
+        min="0"
+        step="1"
+        placeholder="Optional"
+      >
+
+    </div>
+
+
+    <!-- MODERATOR -->
+
+    <div class="field">
+
+      <label>
+        Moderator
+        <span class="required">*</span>
+      </label>
+
+      <select id="moderator">
+
+        <option value="">
+          Loading...
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- NOTES -->
+
+    <div class="field">
+
+      <label>
+        Order Notes
+      </label>
+
+      <textarea
+        id="notes"
+        placeholder="Optional"
+      ></textarea>
+
+    </div>
+
+
+    <!-- BILL -->
+
+    <div class="bill">
+
+      <div class="bill-row">
+
+        <span>
+          Product Total
+        </span>
+
+        <span id="billSubtotal">
+          ৳0
+        </span>
+
+      </div>
+
+
+      <div class="bill-row">
+
+        <span>
+          Delivery Fee
+        </span>
+
+        <span id="billDelivery">
+          ৳0
+        </span>
+
+      </div>
+
+
+      <div class="bill-row">
+
+        <span>
+          Discount
+        </span>
+
+        <span id="billDiscount">
+          ৳0
+        </span>
+
+      </div>
+
+
+      <div class="bill-total">
+
+        <span>
+          Final Bill
+        </span>
+
+        <span id="finalBill">
+          ৳0
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- SUBMIT -->
 
     <button
+      id="submitBtn"
+      class="submit-btn"
       type="button"
-      onclick="closeSuccess()"
     >
-      OK
+      Confirm Order
     </button>
 
   </div>
 
-</div>
 
+  <!-- SUCCESS MODAL -->
 
-<div class="container">
-
-
-<h1>
-  GSBD Order Management
-</h1>
-
-<p class="subtitle">
-  Order Confirmation & Inventory Management
-</p>
-
-
-<!-- CUSTOMER -->
-
-<label for="name">
-  Customer Name *
-</label>
-
-<input
-  id="name"
-  type="text"
-  placeholder="Enter customer name"
->
-
-<div
-  id="nameError"
-  class="error"
->
-  Customer name is required.
-</div>
-
-
-<label for="phone">
-  Phone Number *
-</label>
-
-<input
-  id="phone"
-  type="text"
-  placeholder="Enter phone number"
->
-
-<div
-  id="phoneError"
-  class="error"
->
-  Phone number is required.
-</div>
-
-
-<label for="address">
-  Customer Address *
-</label>
-
-<textarea
-  id="address"
-  placeholder="Enter address"
-></textarea>
-
-<div
-  id="addressError"
-  class="error"
->
-  Customer address is required.
-</div>
-
-
-<!-- SEARCH -->
-
-<label for="searchProduct">
-  Search Product
-</label>
-
-<div class="search-wrap">
-
-  <input
-    id="searchProduct"
-    type="text"
-    autocomplete="off"
-    placeholder="Type product name, brand or code..."
+  <div
+    id="successModal"
+    class="modal-overlay"
   >
 
-  <span class="search-icon">
-    🔍
-  </span>
+    <div class="modal">
 
-</div>
+      <div class="modal-icon">
+        ✅
+      </div>
 
-<div
-  id="searchStatus"
-  class="search-status"
->
-  Loading products...
-</div>
+      <h2>
+        Order Saved
+      </h2>
 
+      <p>
+        Order saved successfully.
+      </p>
 
-<!-- PRODUCT -->
+      <p>
+        <strong id="successProduct">
+          -
+        </strong>
+      </p>
 
-<label for="product">
-  Product *
-</label>
+      <p>
+        Remaining stock:
+        <strong id="successStock">
+          -
+        </strong>
+      </p>
 
-<select
-  id="product"
-  class="product-select"
->
+      <p>
+        Final Bill:
+        <strong id="successBill">
+          -
+        </strong>
+      </p>
 
-  <option value="">
-    Loading...
-  </option>
+      <button
+        class="modal-btn"
+        onclick="closeSuccessModal()"
+      >
+        OK
+      </button>
 
-</select>
-
-<div
-  id="productError"
-  class="error"
->
-  Please select a product.
-</div>
-
-
-<!-- PRODUCT INFORMATION -->
-
-<div class="product-info">
-
-
-  <div class="info-box">
-
-    <span class="info-title">
-      Colour
-    </span>
-
-    <span
-      id="colour"
-      class="info-value"
-    >
-      -
-    </span>
-
-  </div>
-
-
-  <div class="info-box">
-
-    <span class="info-title">
-      Stock Left
-    </span>
-
-    <span
-      id="stock"
-      class="info-value"
-    >
-      0
-    </span>
-
-  </div>
-
-
-  <div class="info-box">
-
-    <span class="info-title">
-      Unit Price
-    </span>
-
-    <span
-      id="price"
-      class="info-value"
-    >
-      ৳0
-    </span>
-
-  </div>
-
-
-</div>
-
-
-<!-- QUANTITY -->
-
-<label for="qty">
-  Quantity *
-</label>
-
-<input
-  id="qty"
-  type="number"
-  min="1"
-  step="1"
-  placeholder="Enter quantity"
->
-
-<div
-  id="qtyError"
-  class="error"
->
-  Enter a valid quantity.
-</div>
-
-
-<!-- DELIVERY -->
-
-<div class="two-col">
-
-
-  <div>
-
-    <label for="area">
-      Delivery Area *
-    </label>
-
-    <select id="area">
-
-      <option value="Inside Dhaka">
-        Inside Dhaka
-      </option>
-
-      <option value="Outside Dhaka">
-        Outside Dhaka
-      </option>
-
-    </select>
-
-  </div>
-
-
-  <div>
-
-    <label for="paid">
-      Customer Paid Delivery? *
-    </label>
-
-    <select id="paid">
-
-      <option value="">
-        Select option
-      </option>
-
-      <option value="Yes">
-        Yes
-      </option>
-
-      <option value="No">
-        No
-      </option>
-
-    </select>
-
-    <div
-      id="paidError"
-      class="error"
-    >
-      Please select an option.
     </div>
 
   </div>
 
 
-</div>
+  <!-- ERROR MODAL -->
 
+  <div
+    id="errorModal"
+    class="modal-overlay"
+  >
 
-<!-- DISCOUNT -->
+    <div class="modal error-modal">
 
-<label for="discount">
-  Discount (৳)
-</label>
+      <div class="modal-icon">
+        ❌
+      </div>
 
-<input
-  id="discount"
-  type="number"
-  min="0"
-  step="1"
-  placeholder="Optional"
->
+      <h2>
+        Error
+      </h2>
 
+      <p id="errorMessage">
+        Something went wrong.
+      </p>
 
-<!-- MODERATOR -->
+      <button
+        class="modal-btn"
+        onclick="closeErrorModal()"
+      >
+        OK
+      </button>
 
-<label for="moderator">
-  Moderator *
-</label>
+    </div>
 
-<select id="moderator">
+  </div>
 
-  <option value="">
-    Loading...
-  </option>
 
-</select>
+  <script>
 
-<div
-  id="moderatorError"
-  class="error"
->
-  Please select a moderator.
-</div>
 
+    /********************************************************
+     * CONFIG
+     ********************************************************/
 
-<!-- NOTE -->
+    const API_URL =
+      'https://script.google.com/macros/s/AKfycbxDeyvSbDNY6_CqQYD4ao08aPDzhMHLK9xB-gsOG3ITvjIQa4S_fqctAWZL7szJovRrKQ/exec';
 
-<label for="note">
-  Order Notes
-</label>
-
-<textarea
-  id="note"
-  placeholder="Optional"
-></textarea>
-
-
-<!-- BILL -->
-
-<div class="bill">
-
-  Final Bill:
-
-  <strong id="bill">
-    ৳0
-  </strong>
-
-</div>
-
-
-<button
-  id="submitButton"
-  type="button"
-  onclick="submitOrder()"
->
-  Confirm Order
-</button>
-
-
-</div>
-
-
-<script>
-
-/************************************************
- * CONFIG
- ************************************************/
-
-const API = 'https://script.google.com/macros/s/AKfycbxDeyvSbDNY6_CqQYD4ao08aPDzhMHLK9xB-gsOG3ITvjIQa4S_fqctAWZL7szJovRrKQ/exec';
-
-
-/************************************************
- * STATE
- ************************************************/
-
-let products = [];
-
-let filteredProducts = [];
-
-let selectedProduct = null;
-
-
-/************************************************
- * DOM
- ************************************************/
-
-const nameInput =
-  document.getElementById('name');
-
-const phoneInput =
-  document.getElementById('phone');
-
-const addressInput =
-  document.getElementById('address');
-
-const searchInput =
-  document.getElementById('searchProduct');
-
-const searchStatus =
-  document.getElementById('searchStatus');
-
-const productSelect =
-  document.getElementById('product');
-
-const colourEl =
-  document.getElementById('colour');
-
-const stockEl =
-  document.getElementById('stock');
-
-const priceEl =
-  document.getElementById('price');
-
-const qtyInput =
-  document.getElementById('qty');
-
-const areaSelect =
-  document.getElementById('area');
-
-const paidSelect =
-  document.getElementById('paid');
-
-const discountInput =
-  document.getElementById('discount');
-
-const moderatorSelect =
-  document.getElementById('moderator');
-
-const noteInput =
-  document.getElementById('note');
-
-const billEl =
-  document.getElementById('bill');
-
-const loadingOverlay =
-  document.getElementById('loadingOverlay');
-
-const successModal =
-  document.getElementById('successModal');
-
-const successDetails =
-  document.getElementById('successDetails');
-
-const submitButton =
-  document.getElementById('submitButton');
-
-
-/************************************************
- * INITIAL LOAD
- ************************************************/
-
-window.addEventListener(
-  'DOMContentLoaded',
-  loadEverything
-);
-
-
-async function loadEverything(){
-
-  try{
-
-    submitButton.disabled = true;
-
-    searchStatus.textContent =
-      'Loading products...';
-
-    await Promise.all([
-      loadProducts(),
-      loadModerators()
-    ]);
-
-    submitButton.disabled = false;
-
-  }catch(error){
-
-    console.error(error);
-
-    searchStatus.textContent =
-      'Unable to load products.';
-
-    alert(
-      'Unable to load inventory.\n\n' +
-      error.message
-    );
-
-  }
-
-}
-
-
-/************************************************
- * LOAD PRODUCTS
- ************************************************/
-
-async function loadProducts(){
-
-  const response =
-    await fetch(
-      API +
-      '?type=products&_=' +
-      Date.now()
-    );
-
-  if(!response.ok){
-
-    throw new Error(
-      'Inventory API returned HTTP ' +
-      response.status
-    );
-
-  }
-
-  const data =
-    await response.json();
-
-  if(!data.success){
-
-    throw new Error(
-      data.message ||
-      'Unable to load inventory.'
-    );
-
-  }
-
-  products =
-    Array.isArray(data.products)
-      ? data.products
-      : [];
-
-  filteredProducts =
-    [...products];
-
-  searchStatus.textContent =
-    products.length +
-    ' products loaded.';
-
-  renderProducts();
-
-}
-
-
-/************************************************
- * LOAD MODERATORS
- ************************************************/
-
-async function loadModerators(){
-
-  const response =
-    await fetch(
-      API +
-      '?type=moderators&_=' +
-      Date.now()
-    );
-
-  if(!response.ok){
-
-    throw new Error(
-      'Moderator API returned HTTP ' +
-      response.status
-    );
-
-  }
-
-  const data =
-    await response.json();
-
-  if(!data.success){
-
-    throw new Error(
-      data.message ||
-      'Unable to load moderators.'
-    );
-
-  }
-
-  const moderators =
-    Array.isArray(data.moderators)
-      ? data.moderators
-      : [];
-
-  moderatorSelect.innerHTML =
-    '<option value="">Select moderator</option>';
-
-  moderators.forEach(function(name){
-
-    const option =
-      document.createElement('option');
-
-    option.value = name;
-
-    option.textContent = name;
-
-    moderatorSelect.appendChild(
-      option
-    );
-
-  });
-
-}
-
-
-/************************************************
- * SEARCH
- ************************************************/
-
-searchInput.addEventListener(
-  'input',
-  function(){
-
-    const search =
-      searchInput.value
-        .trim()
-        .toLowerCase();
-
-    if(!search){
-
-      filteredProducts =
-        [...products];
-
-    }else{
-
-      filteredProducts =
-        products.filter(function(product){
-
-          const text = [
-
-            product.name,
-
-            product.productCode,
-
-            product.brand,
-
-            product.category,
-
-            product.colour
-
-          ]
-          .join(' ')
-          .toLowerCase();
-
-          return text.includes(search);
-
-        });
-
-    }
-
-    searchStatus.textContent =
-      filteredProducts.length +
-      ' matching product(s)';
-
-    renderProducts();
-
-  }
-);
-
-
-/************************************************
- * RENDER PRODUCT SELECT
- ************************************************/
-
-function renderProducts(){
-
-  const oldKey =
-    selectedProduct
-      ? selectedProduct.key
-      : '';
-
-  productSelect.innerHTML = '';
-
-  const firstOption =
-    document.createElement('option');
-
-  firstOption.value = '';
-
-  firstOption.textContent =
-    filteredProducts.length
-      ? 'Select product'
-      : 'No matching product';
-
-  productSelect.appendChild(
-    firstOption
-  );
-
-
-  filteredProducts.forEach(function(product){
 
     /*
-     * CRITICAL:
-     *
-     * The value is product.key.
-     *
-     * It is NOT the array index.
+     * Product data loaded from Google Apps Script.
      */
 
-    const option =
-      document.createElement('option');
+    let products = [];
 
-    option.value =
-      product.key;
 
-    option.textContent =
-      buildProductLabel(product);
+    let filteredProducts = [];
 
-    productSelect.appendChild(
-      option
-    );
 
-  });
+    /********************************************************
+     * DOM
+     ********************************************************/
 
-
-  /*
-   * Keep selected product if it
-   * still exists in search results.
-   */
-
-  const exists =
-    filteredProducts.some(function(product){
-
-      return product.key === oldKey;
-
-    });
-
-
-  if(exists){
-
-    productSelect.value =
-      oldKey;
-
-  }else{
-
-    selectedProduct =
-      null;
-
-    productSelect.value =
-      '';
-
-    updateProductInfo();
-
-  }
-
-}
-
-
-/************************************************
- * PRODUCT LABEL
- ************************************************/
-
-function buildProductLabel(product){
-
-  let label =
-    product.name;
-
-  if(product.colour){
-
-    label +=
-      ' — ' +
-      product.colour;
-
-  }
-
-  if(product.productCode){
-
-    label +=
-      ' [' +
-      product.productCode +
-      ']';
-
-  }
-
-  return label;
-
-}
-
-
-/************************************************
- * PRODUCT SELECTION
- ************************************************/
-
-productSelect.addEventListener(
-  'change',
-  function(){
-
-    const key =
-      productSelect.value;
-
-    if(!key){
-
-      selectedProduct =
-        null;
-
-      updateProductInfo();
-
-      return;
-
-    }
-
-    /*
-     * Find by permanent key.
-     * NEVER by index.
-     */
-
-    selectedProduct =
-      products.find(function(product){
-
-        return product.key === key;
-
-      }) || null;
-
-    updateProductInfo();
-
-  }
-);
-
-
-/************************************************
- * PRODUCT INFO
- ************************************************/
-
-function updateProductInfo(){
-
-  if(!selectedProduct){
-
-    colourEl.textContent =
-      '-';
-
-    stockEl.textContent =
-      '0';
-
-    priceEl.textContent =
-      '৳0';
-
-    updateBill();
-
-    return;
-
-  }
-
-  colourEl.textContent =
-    selectedProduct.colour ||
-    '-';
-
-  stockEl.textContent =
-    formatNumber(
-      selectedProduct.stock
-    );
-
-  priceEl.textContent =
-    '৳' +
-    formatNumber(
-      selectedProduct.price
-    );
-
-  updateBill();
-
-}
-
-
-/************************************************
- * INPUT EVENTS
- ************************************************/
-
-qtyInput.addEventListener(
-  'input',
-  updateBill
-);
-
-areaSelect.addEventListener(
-  'change',
-  updateBill
-);
-
-paidSelect.addEventListener(
-  'change',
-  updateBill
-);
-
-discountInput.addEventListener(
-  'input',
-  updateBill
-);
-
-
-/************************************************
- * BILL
- ************************************************/
-
-function updateBill(){
-
-  if(!selectedProduct){
-
-    billEl.textContent =
-      '৳0';
-
-    return;
-
-  }
-
-  const qty =
-    Number(qtyInput.value) || 0;
-
-  const price =
-    Number(selectedProduct.price) || 0;
-
-  const discount =
-    Math.max(
-      0,
-      Number(discountInput.value) || 0
-    );
-
-  const deliveryFee =
-    areaSelect.value ===
-      'Inside Dhaka'
-        ? 60
-        : 120;
-
-  let total =
-    (qty * price) -
-    discount;
-
-  if(
-    paidSelect.value === 'No'
-  ){
-
-    total +=
-      deliveryFee;
-
-  }
-
-  total =
-    Math.max(
-      0,
-      total
-    );
-
-  billEl.textContent =
-    '৳' +
-    formatNumber(total);
-
-}
-
-
-/************************************************
- * VALIDATION
- ************************************************/
-
-function validate(){
-
-  let valid = true;
-
-  clearErrors();
-
-
-  if(
-    !nameInput.value.trim()
-  ){
-
-    showError(
-      'nameError',
-      nameInput
-    );
-
-    valid = false;
-
-  }
-
-
-  if(
-    !phoneInput.value.trim()
-  ){
-
-    showError(
-      'phoneError',
-      phoneInput
-    );
-
-    valid = false;
-
-  }
-
-
-  if(
-    !addressInput.value.trim()
-  ){
-
-    showError(
-      'addressError',
-      addressInput
-    );
-
-    valid = false;
-
-  }
-
-
-  if(!selectedProduct){
-
-    showError(
-      'productError',
-      productSelect
-    );
-
-    valid = false;
-
-  }
-
-
-  const qty =
-    Number(qtyInput.value);
-
-  if(
-    !Number.isInteger(qty) ||
-    qty <= 0
-  ){
-
-    showError(
-      'qtyError',
-      qtyInput
-    );
-
-    valid = false;
-
-  }
-
-
-  if(
-    selectedProduct &&
-    qty >
-      Number(selectedProduct.stock)
-  ){
-
-    showError(
-      'qtyError',
-      qtyInput,
-      'Not enough stock.'
-    );
-
-    valid = false;
-
-  }
-
-
-  if(
-    paidSelect.value !== 'Yes' &&
-    paidSelect.value !== 'No'
-  ){
-
-    showError(
-      'paidError',
-      paidSelect
-    );
-
-    valid = false;
-
-  }
-
-
-  if(
-    !moderatorSelect.value
-  ){
-
-    showError(
-      'moderatorError',
-      moderatorSelect
-    );
-
-    valid = false;
-
-  }
-
-
-  return valid;
-
-}
-
-
-/************************************************
- * SHOW ERROR
- ************************************************/
-
-function showError(
-  errorId,
-  field,
-  message
-){
-
-  field.classList.add(
-    'invalid'
-  );
-
-  const error =
-    document.getElementById(
-      errorId
-    );
-
-  if(message){
-
-    error.textContent =
-      message;
-
-  }
-
-  error.style.display =
-    'block';
-
-}
-
-
-/************************************************
- * CLEAR ERRORS
- ************************************************/
-
-function clearErrors(){
-
-  document
-    .querySelectorAll('.error')
-    .forEach(function(el){
-
-      el.style.display =
-        'none';
-
-    });
-
-  document
-    .querySelectorAll('.invalid')
-    .forEach(function(el){
-
-      el.classList.remove(
-        'invalid'
+    const customerName =
+      document.getElementById(
+        'customerName'
       );
 
-    });
 
-}
-
-
-/************************************************
- * SUBMIT
- ************************************************/
-
-async function submitOrder(){
-
-  if(!validate()){
-
-    return;
-
-  }
+    const phone =
+      document.getElementById(
+        'phone'
+      );
 
 
-  /*
-   * Capture the exact selected product.
-   *
-   * This is extremely important.
-   */
-
-  const product =
-    selectedProduct;
+    const address =
+      document.getElementById(
+        'address'
+      );
 
 
-  const qty =
-    Number(qtyInput.value);
-
-  const discount =
-    Math.max(
-      0,
-      Number(discountInput.value) || 0
-    );
+    const productSearch =
+      document.getElementById(
+        'productSearch'
+      );
 
 
-  /*
-   * Send productKey.
-   *
-   * Do NOT send product array index.
-   */
-
-  const payload = {
-
-    name:
-      nameInput.value.trim(),
-
-    phone:
-      phoneInput.value.trim(),
-
-    address:
-      addressInput.value.trim(),
-
-    productKey:
-      product.key,
-
-    qty:
-      qty,
-
-    deliveryArea:
-      areaSelect.value,
-
-    deliveryPaid:
-      paidSelect.value,
-
-    discount:
-      discount,
-
-    note:
-      noteInput.value.trim(),
-
-    moderator:
-      moderatorSelect.value
-
-  };
+    const searchStatus =
+      document.getElementById(
+        'searchStatus'
+      );
 
 
-  console.log(
-    'Submitting exact product:',
-    product
-  );
-
-  console.log(
-    'Submitting payload:',
-    payload
-  );
+    const productSelect =
+      document.getElementById(
+        'productSelect'
+      );
 
 
-  loadingOverlay.style.display =
-    'flex';
+    const colour =
+      document.getElementById(
+        'colour'
+      );
 
-  submitButton.disabled =
-    true;
+
+    const stock =
+      document.getElementById(
+        'stock'
+      );
 
 
-  try{
+    const unitPrice =
+      document.getElementById(
+        'unitPrice'
+      );
 
-    /*
-     * Keep body as a plain string.
-     *
-     * This avoids unnecessary CORS
-     * preflight problems with Apps Script.
-     */
 
-    const response =
-      await fetch(
-        API,
-        {
-          method:'POST',
+    const quantity =
+      document.getElementById(
+        'quantity'
+      );
 
-          body:
-            JSON.stringify(payload)
+
+    const deliveryArea =
+      document.getElementById(
+        'deliveryArea'
+      );
+
+
+    const deliveryPaid =
+      document.getElementById(
+        'deliveryPaid'
+      );
+
+
+    const discount =
+      document.getElementById(
+        'discount'
+      );
+
+
+    const moderator =
+      document.getElementById(
+        'moderator'
+      );
+
+
+    const notes =
+      document.getElementById(
+        'notes'
+      );
+
+
+    const submitBtn =
+      document.getElementById(
+        'submitBtn'
+      );
+
+
+    const billSubtotal =
+      document.getElementById(
+        'billSubtotal'
+      );
+
+
+    const billDelivery =
+      document.getElementById(
+        'billDelivery'
+      );
+
+
+    const billDiscount =
+      document.getElementById(
+        'billDiscount'
+      );
+
+
+    const finalBill =
+      document.getElementById(
+        'finalBill'
+      );
+
+
+    /********************************************************
+     * FORMAT MONEY
+     ********************************************************/
+
+    function money(value) {
+
+      const number =
+        Number(value) || 0;
+
+
+      return (
+        '৳' +
+        number.toLocaleString(
+          'en-BD',
+          {
+            maximumFractionDigits: 0
+          }
+        )
+      );
+
+    }
+
+
+    /********************************************************
+     * DELIVERY FEE
+     ********************************************************/
+
+    function getDeliveryFee() {
+
+      return
+        deliveryArea.value ===
+        'Outside Dhaka'
+          ? 120
+          : 60;
+
+    }
+
+
+    /********************************************************
+     * FETCH API
+     ********************************************************/
+
+    async function apiGet(
+      type
+    ) {
+
+      const url =
+        API_URL +
+        '?type=' +
+        encodeURIComponent(
+          type
+        ) +
+        '&_=' +
+        Date.now();
+
+
+      const response =
+        await fetch(
+          url,
+          {
+            method: 'GET',
+            cache: 'no-store'
+          }
+        );
+
+
+      const text =
+        await response.text();
+
+
+      let data;
+
+
+      try {
+
+        data =
+          JSON.parse(text);
+
+      } catch (error) {
+
+        throw new Error(
+          'Invalid API response.'
+        );
+
+      }
+
+
+      if (
+        !data.success
+      ) {
+
+        throw new Error(
+          data.message ||
+          'API request failed.'
+        );
+
+      }
+
+
+      return data;
+
+    }
+
+
+    /********************************************************
+     * LOAD PRODUCTS
+     ********************************************************/
+
+    async function loadProducts() {
+
+      searchStatus.textContent =
+        'Loading products...';
+
+
+      try {
+
+        const data =
+          await apiGet(
+            'products'
+          );
+
+
+        products =
+          Array.isArray(
+            data.products
+          )
+            ? data.products
+            : [];
+
+
+        /*
+         * Extra safety:
+         * Never show category header rows.
+         */
+
+        products =
+          products.filter(
+            function(product) {
+
+              const name =
+                String(
+                  product.name || ''
+                ).trim();
+
+
+              return (
+                name &&
+                !/^\*+.*\*+$/.test(
+                  name
+                )
+              );
+
+            }
+          );
+
+
+        filteredProducts =
+          products.slice();
+
+
+        renderProducts(
+          filteredProducts
+        );
+
+
+        searchStatus.textContent =
+          products.length +
+          ' products available.';
+
+
+      } catch (error) {
+
+        searchStatus.textContent =
+          'Unable to load products.';
+
+
+        showError(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /********************************************************
+     * LOAD MODERATORS
+     ********************************************************/
+
+    async function loadModerators() {
+
+      try {
+
+        const data =
+          await apiGet(
+            'moderators'
+          );
+
+
+        const moderators =
+          Array.isArray(
+            data.moderators
+          )
+            ? data.moderators
+            : [];
+
+
+        moderator.innerHTML =
+          '<option value="">Select moderator</option>';
+
+
+        moderators.forEach(
+          function(name) {
+
+            const option =
+              document.createElement(
+                'option'
+              );
+
+
+            option.value =
+              name;
+
+
+            option.textContent =
+              name;
+
+
+            moderator.appendChild(
+              option
+            );
+
+          }
+        );
+
+
+        if (
+          moderators.length === 0
+        ) {
+
+          moderator.innerHTML =
+            '<option value="">No moderators found</option>';
+
+        }
+
+
+      } catch (error) {
+
+        moderator.innerHTML =
+          '<option value="">Unable to load moderators</option>';
+
+        showError(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /********************************************************
+     * RENDER PRODUCTS
+     ********************************************************/
+
+    function renderProducts(
+      list
+    ) {
+
+      productSelect.innerHTML =
+        '';
+
+
+      if (
+        list.length === 0
+      ) {
+
+        const option =
+          document.createElement(
+            'option'
+          );
+
+
+        option.value =
+          '';
+
+
+        option.textContent =
+          'No matching products';
+
+
+        productSelect.appendChild(
+          option
+        );
+
+
+        clearProductInfo();
+
+        return;
+
+      }
+
+
+      const defaultOption =
+        document.createElement(
+          'option'
+        );
+
+
+      defaultOption.value =
+        '';
+
+
+      defaultOption.textContent =
+        'Select product';
+
+
+      productSelect.appendChild(
+        defaultOption
+      );
+
+
+      list.forEach(
+        function(product) {
+
+          const option =
+            document.createElement(
+              'option'
+            );
+
+
+          /*
+           * Use row number as unique identifier.
+           */
+
+          option.value =
+            String(
+              product.row
+            );
+
+
+          let label =
+            product.name;
+
+
+          if (
+            product.colour
+          ) {
+
+            label +=
+              ' — ' +
+              product.colour;
+
+          }
+
+
+          if (
+            product.productCode
+          ) {
+
+            label +=
+              ' [' +
+              product.productCode +
+              ']';
+
+          }
+
+
+          option.textContent =
+            label;
+
+
+          productSelect.appendChild(
+            option
+          );
+
         }
       );
 
 
-    if(!response.ok){
+      /*
+       * Automatically select the first matching
+       * product when there is exactly one match.
+       */
 
-      throw new Error(
-        'Server returned HTTP ' +
-        response.status
+      if (
+        list.length === 1
+      ) {
+
+        productSelect.value =
+          String(
+            list[0].row
+          );
+
+
+        updateProductInfo();
+
+      } else {
+
+        clearProductInfo();
+
+      }
+
+    }
+
+
+    /********************************************************
+     * SEARCH PRODUCTS
+     ********************************************************/
+
+    productSearch.addEventListener(
+      'input',
+      function() {
+
+        const query =
+          productSearch.value
+            .trim()
+            .toLowerCase();
+
+
+        if (!query) {
+
+          filteredProducts =
+            products.slice();
+
+
+          searchStatus.textContent =
+            products.length +
+            ' products available.';
+
+
+          renderProducts(
+            filteredProducts
+          );
+
+          return;
+
+        }
+
+
+        filteredProducts =
+          products.filter(
+            function(product) {
+
+              const combined =
+                [
+                  product.name,
+                  product.brand,
+                  product.category,
+                  product.productCode,
+                  product.colour
+                ]
+                  .join(' ')
+                  .toLowerCase();
+
+
+              return combined.includes(
+                query
+              );
+
+            }
+          );
+
+
+        searchStatus.textContent =
+          filteredProducts.length +
+          ' matching product(s).';
+
+
+        renderProducts(
+          filteredProducts
+        );
+
+      }
+    );
+
+
+    /********************************************************
+     * PRODUCT CHANGE
+     ********************************************************/
+
+    productSelect.addEventListener(
+      'change',
+      updateProductInfo
+    );
+
+
+    function getSelectedProduct() {
+
+      const row =
+        Number(
+          productSelect.value
+        );
+
+
+      if (!row) {
+
+        return null;
+
+      }
+
+
+      return (
+        products.find(
+          function(product) {
+
+            return (
+              Number(product.row) ===
+              row
+            );
+
+          }
+        ) ||
+        filteredProducts.find(
+          function(product) {
+
+            return (
+              Number(product.row) ===
+              row
+            );
+
+          }
+        ) ||
+        null
       );
 
     }
 
 
-    const result =
-      await response.json();
+    function updateProductInfo() {
+
+      const product =
+        getSelectedProduct();
 
 
-    if(!result.success){
+      if (!product) {
 
-      throw new Error(
-        result.message ||
-        'Order could not be saved.'
+        clearProductInfo();
+
+        updateBill();
+
+        return;
+
+      }
+
+
+      colour.textContent =
+        product.colour ||
+        '-';
+
+
+      stock.textContent =
+        Number(
+          product.stock || 0
+        );
+
+
+      unitPrice.textContent =
+        money(
+          product.price
+        );
+
+
+      quantity.max =
+        Math.max(
+          0,
+          Number(
+            product.stock || 0
+          )
+        );
+
+
+      updateBill();
+
+    }
+
+
+    function clearProductInfo() {
+
+      colour.textContent =
+        '-';
+
+
+      stock.textContent =
+        '0';
+
+
+      unitPrice.textContent =
+        '৳0';
+
+
+      quantity.removeAttribute(
+        'max'
       );
 
     }
 
 
-    loadingOverlay.style.display =
-      'none';
+    /********************************************************
+     * BILL
+     ********************************************************/
+
+    function updateBill() {
+
+      const product =
+        getSelectedProduct();
 
 
-    showSuccess(
-      result
+      const qty =
+        Math.max(
+          0,
+          Number(
+            quantity.value
+          ) || 0
+        );
+
+
+      const discountValue =
+        Math.max(
+          0,
+          Number(
+            discount.value
+          ) || 0
+        );
+
+
+      if (!product) {
+
+        billSubtotal.textContent =
+          '৳0';
+
+        billDelivery.textContent =
+          '৳0';
+
+        billDiscount.textContent =
+          '৳0';
+
+        finalBill.textContent =
+          '৳0';
+
+        return;
+
+      }
+
+
+      const subtotal =
+        Number(
+          product.price || 0
+        ) *
+        qty;
+
+
+      const safeDiscount =
+        Math.min(
+          discountValue,
+          subtotal
+        );
+
+
+      const deliveryFee =
+        deliveryArea.value ===
+        'Outside Dhaka'
+          ? 120
+          : 60;
+
+
+      /*
+       * Customer paid delivery = Yes
+       * -> don't add delivery to final bill.
+       *
+       * Customer paid delivery = No
+       * -> add delivery to final bill.
+       */
+
+      const billDeliveryAmount =
+        deliveryPaid.value ===
+        'Yes'
+          ? 0
+          : deliveryFee;
+
+
+      const total =
+        Math.max(
+          0,
+          subtotal -
+          safeDiscount +
+          billDeliveryAmount
+        );
+
+
+      billSubtotal.textContent =
+        money(
+          subtotal
+        );
+
+
+      billDelivery.textContent =
+        money(
+          billDeliveryAmount
+        );
+
+
+      billDiscount.textContent =
+        money(
+          safeDiscount
+        );
+
+
+      finalBill.textContent =
+        money(
+          total
+        );
+
+    }
+
+
+    quantity.addEventListener(
+      'input',
+      updateBill
     );
 
 
-  }catch(error){
-
-    console.error(error);
-
-    loadingOverlay.style.display =
-      'none';
-
-    alert(
-      'Order failed.\n\n' +
-      error.message
-    );
-
-  }finally{
-
-    submitButton.disabled =
-      false;
-
-  }
-
-}
-
-
-/************************************************
- * SUCCESS
- ************************************************/
-
-function showSuccess(result){
-
-  successDetails.innerHTML =
-
-    '<b>' +
-    escapeHtml(
-      result.product
-    ) +
-    '</b><br><br>' +
-
-    'Product Code: ' +
-    escapeHtml(
-      result.productCode || '-'
-    ) +
-    '<br>' +
-
-    'Quantity: ' +
-    escapeHtml(
-      result.quantity
-    ) +
-    '<br>' +
-
-    'Unit Price: ৳' +
-    formatNumber(
-      result.unitPrice
-    ) +
-    '<br>' +
-
-    'Remaining Stock: ' +
-    formatNumber(
-      result.remainingStock
-    ) +
-    '<br>' +
-
-    'Final Bill: ৳' +
-    formatNumber(
-      result.finalBill
+    discount.addEventListener(
+      'input',
+      updateBill
     );
 
 
-  successModal.style.display =
-    'flex';
-
-}
-
-
-/************************************************
- * CLOSE SUCCESS
- ************************************************/
-
-function closeSuccess(){
-
-  successModal.style.display =
-    'none';
-
-  /*
-   * Reload inventory from server.
-   */
-
-  resetForm();
-
-  loadEverything();
-
-}
+    deliveryArea.addEventListener(
+      'change',
+      updateBill
+    );
 
 
-/************************************************
- * RESET FORM
- ************************************************/
-
-function resetForm(){
-
-  nameInput.value =
-    '';
-
-  phoneInput.value =
-    '';
-
-  addressInput.value =
-    '';
-
-  searchInput.value =
-    '';
-
-  qtyInput.value =
-    '';
-
-  paidSelect.value =
-    '';
-
-  discountInput.value =
-    '';
-
-  moderatorSelect.value =
-    '';
-
-  noteInput.value =
-    '';
-
-  selectedProduct =
-    null;
-
-  filteredProducts =
-    [...products];
-
-  renderProducts();
-
-  updateProductInfo();
-
-}
+    deliveryPaid.addEventListener(
+      'change',
+      updateBill
+    );
 
 
-/************************************************
- * NUMBER FORMAT
- ************************************************/
+    /********************************************************
+     * SUBMIT ORDER
+     ********************************************************/
 
-function formatNumber(value){
-
-  const number =
-    Number(value) || 0;
-
-  return number.toLocaleString(
-    'en-BD'
-  );
-
-}
+    submitBtn.addEventListener(
+      'click',
+      submitOrder
+    );
 
 
-/************************************************
- * HTML ESCAPE
- ************************************************/
+    async function submitOrder() {
 
-function escapeHtml(value){
+      const product =
+        getSelectedProduct();
 
-  return String(
-    value === undefined ||
-    value === null
-      ? ''
-      : value
-  )
 
-  .replace(
-    /&/g,
-    '&amp;'
-  )
+      /*
+       * VALIDATION
+       */
 
-  .replace(
-    /</g,
-    '&lt;'
-  )
+      if (
+        !customerName.value.trim()
+      ) {
 
-  .replace(
-    />/g,
-    '&gt;'
-  )
+        showError(
+          'Customer name is required.'
+        );
 
-  .replace(
-    /"/g,
-    '&quot;'
-  )
+        customerName.focus();
 
-  .replace(
-    /'/g,
-    '&#039;'
-  );
+        return;
 
-}
+      }
 
-</script>
+
+      if (
+        !phone.value.trim()
+      ) {
+
+        showError(
+          'Phone number is required.'
+        );
+
+        phone.focus();
+
+        return;
+
+      }
+
+
+      if (
+        !address.value.trim()
+      ) {
+
+        showError(
+          'Customer address is required.'
+        );
+
+        address.focus();
+
+        return;
+
+      }
+
+
+      if (!product) {
+
+        showError(
+          'Please select a product.'
+        );
+
+        return;
+
+      }
+
+
+      const qty =
+        Math.floor(
+          Number(
+            quantity.value
+          ) || 0
+        );
+
+
+      if (
+        qty < 1
+      ) {
+
+        showError(
+          'Quantity must be at least 1.'
+        );
+
+        quantity.focus();
+
+        return;
+
+      }
+
+
+      const currentStock =
+        Number(
+          product.stock || 0
+        );
+
+
+      if (
+        qty > currentStock
+      ) {
+
+        showError(
+          'Quantity cannot be greater than current stock.'
+        );
+
+        return;
+
+      }
+
+
+      if (
+        !deliveryPaid.value
+      ) {
+
+        showError(
+          'Please select whether the customer paid delivery.'
+        );
+
+        return;
+
+      }
+
+
+      if (
+        !moderator.value
+      ) {
+
+        showError(
+          'Please select a moderator.'
+        );
+
+        return;
+
+      }
+
+
+      const discountValue =
+        Math.max(
+          0,
+          Number(
+            discount.value
+          ) || 0
+        );
+
+
+      /*
+       * Disable button while saving.
+       */
+
+      submitBtn.disabled =
+        true;
+
+
+      submitBtn.textContent =
+        'Saving Order...';
+
+
+      try {
+
+        /*
+         * IMPORTANT:
+         *
+         * We send the row number AND product code.
+         *
+         * Apps Script re-checks the product directly
+         * from Price List(Master) before saving.
+         */
+
+        const payload = {
+
+          action:
+            'createOrder',
+
+          customerName:
+            customerName.value.trim(),
+
+          phone:
+            phone.value.trim(),
+
+          address:
+            address.value.trim(),
+
+          productName:
+            product.name,
+
+          productCode:
+            product.productCode,
+
+          row:
+            product.row,
+
+          quantity:
+            qty,
+
+          deliveryArea:
+            deliveryArea.value,
+
+          deliveryPaid:
+            deliveryPaid.value,
+
+          discount:
+            discountValue,
+
+          moderator:
+            moderator.value,
+
+          notes:
+            notes.value.trim()
+
+        };
+
+
+        /*
+         * Use POST.
+         */
+
+        const response =
+          await fetch(
+            API_URL,
+            {
+              method: 'POST',
+
+              headers: {
+                'Content-Type':
+                  'text/plain;charset=utf-8'
+              },
+
+              body:
+                JSON.stringify(
+                  payload
+                )
+
+            }
+          );
+
+
+        const text =
+          await response.text();
+
+
+        let data;
+
+
+        try {
+
+          data =
+            JSON.parse(
+              text
+            );
+
+        } catch (error) {
+
+          throw new Error(
+            'Invalid response from Apps Script.'
+          );
+
+        }
+
+
+        if (
+          !data.success
+        ) {
+
+          throw new Error(
+            data.message ||
+            'Unable to save order.'
+          );
+
+        }
+
+
+        /*
+         * SUCCESS
+         */
+
+        showSuccess(
+          data.order
+        );
+
+
+      } catch (error) {
+
+        showError(
+          error.message
+        );
+
+      } finally {
+
+        submitBtn.disabled =
+          false;
+
+
+        submitBtn.textContent =
+          'Confirm Order';
+
+      }
+
+    }
+
+
+    /********************************************************
+     * SUCCESS
+     ********************************************************/
+
+    function showSuccess(
+      order
+    ) {
+
+      document.getElementById(
+        'successProduct'
+      ).textContent =
+        order.product || '-';
+
+
+      document.getElementById(
+        'successStock'
+      ).textContent =
+        order.remainingStock ?? '-';
+
+
+      document.getElementById(
+        'successBill'
+      ).textContent =
+        money(
+          order.finalBill
+        );
+
+
+      document.getElementById(
+        'successModal'
+      ).style.display =
+        'flex';
+
+    }
+
+
+    function closeSuccessModal() {
+
+      document.getElementById(
+        'successModal'
+      ).style.display =
+        'none';
+
+
+      /*
+       * Reset form after successful order.
+       */
+
+      resetForm();
+
+
+      /*
+       * Reload fresh stock/products.
+       */
+
+      loadProducts();
+
+    }
+
+
+    /********************************************************
+     * ERROR
+     ********************************************************/
+
+    function showError(
+      message
+    ) {
+
+      document.getElementById(
+        'errorMessage'
+      ).textContent =
+        message ||
+        'Something went wrong.';
+
+
+      document.getElementById(
+        'errorModal'
+      ).style.display =
+        'flex';
+
+    }
+
+
+    function closeErrorModal() {
+
+      document.getElementById(
+        'errorModal'
+      ).style.display =
+        'none';
+
+    }
+
+
+    /********************************************************
+     * RESET FORM
+     ********************************************************/
+
+    function resetForm() {
+
+      customerName.value =
+        '';
+
+
+      phone.value =
+        '';
+
+
+      address.value =
+        '';
+
+
+      productSearch.value =
+        '';
+
+
+      quantity.value =
+        '';
+
+
+      discount.value =
+        '';
+
+
+      notes.value =
+        '';
+
+
+      deliveryArea.value =
+        'Inside Dhaka';
+
+
+      deliveryPaid.value =
+        '';
+
+
+      moderator.value =
+        '';
+
+
+      filteredProducts =
+        products.slice();
+
+
+      renderProducts(
+        filteredProducts
+      );
+
+
+      clearProductInfo();
+
+
+      updateBill();
+
+    }
+
+
+    /********************************************************
+     * INITIALIZE
+     ********************************************************/
+
+    async function initialize() {
+
+      /*
+       * Load both independently.
+       */
+
+      await Promise.all([
+        loadProducts(),
+        loadModerators()
+      ]);
+
+    }
+
+
+    initialize();
+
+  </script>
 
 </body>
 
