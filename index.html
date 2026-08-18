@@ -135,215 +135,985 @@ button:hover{
 </div>
 
 <div class="container">
+
   <h2>GSBD Order Management</h2>
-  <p class="sub">Order Confirmation & Inventory Management</p>
+
+  <p class="sub">
+    Order Confirmation & Inventory Management
+  </p>
+
+
+  <!-- CUSTOMER NAME -->
 
   <label>Customer Name *</label>
-  <input id="name" placeholder="Enter customer name">
-  <small id="name-error" class="error">Required field</small>
+
+  <input
+    id="name"
+    placeholder="Enter customer name"
+  >
+
+  <small
+    id="name-error"
+    class="error"
+  >
+    Required field
+  </small>
+
+
+  <!-- PHONE -->
 
   <label>Phone Number *</label>
-  <input id="phone" placeholder="Enter phone number">
-  <small id="phone-error" class="error">Required field</small>
+
+  <input
+    id="phone"
+    placeholder="Enter phone number"
+  >
+
+  <small
+    id="phone-error"
+    class="error"
+  >
+    Required field
+  </small>
+
+
+  <!-- ADDRESS -->
 
   <label>Customer Address *</label>
-  <textarea id="address" placeholder="Enter address"></textarea>
-  <small id="address-error" class="error">Required field</small>
+
+  <textarea
+    id="address"
+    placeholder="Enter address"
+  ></textarea>
+
+  <small
+    id="address-error"
+    class="error"
+  >
+    Required field
+  </small>
+
+
+  <!-- PRODUCT -->
 
   <label>Product *</label>
+
   <select id="product">
-    <option>Loading...</option>
+    <option value="">
+      Loading...
+    </option>
   </select>
-  <small id="product-error" class="error">Required field</small>
+
+  <small
+    id="product-error"
+    class="error"
+  >
+    Required field
+  </small>
+
+
+  <!-- PRODUCT INFO -->
 
   <div class="stats">
+
     <div class="box">
-      Stock Left: <b id="stock">0</b>
+      Stock Left:
+      <b id="stock">0</b>
     </div>
 
     <div class="box">
-      Unit Price: ৳ <b id="price">0</b>
+      Unit Price:
+      ৳ <b id="price">0</b>
     </div>
+
   </div>
+
+
+  <!-- QUANTITY -->
 
   <label>Quantity *</label>
-  <input id="qty" type="number" placeholder="Enter quantity">
-  <small id="qty-error" class="error">Required field</small>
+
+  <input
+    id="qty"
+    type="number"
+    min="1"
+    placeholder="Enter quantity"
+  >
+
+  <small
+    id="qty-error"
+    class="error"
+  >
+    Required field
+  </small>
+
+
+  <!-- DELIVERY AREA -->
 
   <label>Delivery Area *</label>
+
   <select id="area">
-    <option>Inside Dhaka</option>
-    <option>Outside Dhaka</option>
+
+    <option value="Inside Dhaka">
+      Inside Dhaka
+    </option>
+
+    <option value="Outside Dhaka">
+      Outside Dhaka
+    </option>
+
   </select>
+
+
+  <!-- DELIVERY PAID -->
 
   <label>Customer Paid Delivery? *</label>
+
   <select id="paid">
-    <option value="">Select option</option>
-    <option>Yes</option>
-    <option>No</option>
+
+    <option value="">
+      Select option
+    </option>
+
+    <option value="Yes">
+      Yes
+    </option>
+
+    <option value="No">
+      No
+    </option>
+
   </select>
-  <small id="paid-error" class="error">Required field</small>
+
+  <small
+    id="paid-error"
+    class="error"
+  >
+    Required field
+  </small>
+
+
+  <!-- DISCOUNT -->
 
   <label>Discount (৳)</label>
-  <input id="discount" type="number" placeholder="Optional">
+
+  <input
+    id="discount"
+    type="number"
+    min="0"
+    placeholder="Optional"
+  >
+
+
+  <!-- MODERATOR -->
 
   <label>Moderator *</label>
+
   <select id="moderator">
-    <option>Loading...</option>
+
+    <option value="">
+      Loading...
+    </option>
+
   </select>
-  <small id="moderator-error" class="error">Required field</small>
+
+  <small
+    id="moderator-error"
+    class="error"
+  >
+    Required field
+  </small>
+
+
+  <!-- NOTES -->
 
   <label>Order Notes</label>
-  <textarea id="note" placeholder="Optional"></textarea>
+
+  <textarea
+    id="note"
+    placeholder="Optional"
+  ></textarea>
+
+
+  <!-- FINAL BILL -->
 
   <div class="box">
-    Final Bill: ৳ <b id="bill">0</b>
+
+    Final Bill:
+    ৳ <b id="bill">0</b>
+
   </div>
 
-  <button onclick="submitOrder()">Confirm Order</button>
+
+  <!-- SUBMIT -->
+
+  <button
+    onclick="submitOrder()"
+  >
+    Confirm Order
+  </button>
+
 </div>
 
+
 <script>
-const API = "https://script.google.com/macros/s/AKfycbw0CMAM4E00q0gFAQ3XlHqnKt1l8RrzqFnwGfMXnr4xVgkAp-fBtR6kpaQMh5aFOkar/exec";
+
+/* ==================================================
+   API
+================================================== */
+
+const API =
+  "https://script.google.com/macros/s/AKfycbw0CMAM4E00q0gFAQ3XlHqnKt1l8RrzqFnwGfMXnr4xVgkAp-fBtR6kpaQMh5aFOkar/exec";
+
+
+/* ==================================================
+   ELEMENTS
+================================================== */
+
+const nameInput =
+  document.getElementById("name");
+
+const phoneInput =
+  document.getElementById("phone");
+
+const addressInput =
+  document.getElementById("address");
+
+const productSelect =
+  document.getElementById("product");
+
+const stockDisplay =
+  document.getElementById("stock");
+
+const priceDisplay =
+  document.getElementById("price");
+
+const qtyInput =
+  document.getElementById("qty");
+
+const areaSelect =
+  document.getElementById("area");
+
+const paidSelect =
+  document.getElementById("paid");
+
+const discountInput =
+  document.getElementById("discount");
+
+const moderatorSelect =
+  document.getElementById("moderator");
+
+const noteInput =
+  document.getElementById("note");
+
+const billDisplay =
+  document.getElementById("bill");
+
+const loading =
+  document.getElementById("loading");
+
+const success =
+  document.getElementById("success");
+
+
+/* ==================================================
+   PRODUCT DATA
+================================================== */
 
 let products = [];
 
-async function load() {
-  products = await (await fetch(API)).json();
 
-  product.innerHTML = products.map(p => {
-    const optionValue = (p.productCode && String(p.productCode).trim() !== "")
-      ? String(p.productCode).trim()
-      : p.name;
+/* ==================================================
+   LOAD PRODUCTS + MODERATORS
+================================================== */
 
-    return `<option value="${optionValue}">${p.name}</option>`;
-  }).join('');
+async function load(){
 
-  let mods = await (await fetch(API + "?type=moderators")).json();
+  try{
 
-  moderator.innerHTML = mods.map(
-    m => `<option>${m}</option>`
-  ).join('');
+    /*
+     * GET INVENTORY
+     */
 
-  update();
+    const productResponse =
+      await fetch(API);
+
+    if(!productResponse.ok){
+
+      throw new Error(
+        "Unable to load inventory."
+      );
+
+    }
+
+    products =
+      await productResponse.json();
+
+
+    /*
+     * Make sure API returned an array
+     */
+
+    if(!Array.isArray(products)){
+
+      throw new Error(
+        "Invalid inventory response."
+      );
+
+    }
+
+
+    /*
+     * Populate product dropdown
+     */
+
+    productSelect.innerHTML =
+      '<option value="">Select product</option>';
+
+
+    products.forEach(function(p){
+
+      const option =
+        document.createElement("option");
+
+      /*
+       * Product name is now the value.
+       *
+       * Your Code.gs uses:
+       * Column B = Product Name
+       */
+
+      option.value =
+        p.name;
+
+      option.textContent =
+        p.name;
+
+      productSelect.appendChild(
+        option
+      );
+
+    });
+
+
+    /*
+     * GET MODERATORS
+     */
+
+    const moderatorResponse =
+      await fetch(
+        API + "?type=moderators"
+      );
+
+
+    if(!moderatorResponse.ok){
+
+      throw new Error(
+        "Unable to load moderators."
+      );
+
+    }
+
+
+    const moderators =
+      await moderatorResponse.json();
+
+
+    if(!Array.isArray(moderators)){
+
+      throw new Error(
+        "Invalid moderator response."
+      );
+
+    }
+
+
+    /*
+     * Populate moderator dropdown
+     */
+
+    moderatorSelect.innerHTML =
+      '<option value="">Select moderator</option>';
+
+
+    moderators.forEach(function(m){
+
+      const option =
+        document.createElement("option");
+
+      option.value =
+        m;
+
+      option.textContent =
+        m;
+
+      moderatorSelect.appendChild(
+        option
+      );
+
+    });
+
+
+    /*
+     * Update product information
+     */
+
+    update();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    productSelect.innerHTML =
+      '<option value="">Failed to load products</option>';
+
+    moderatorSelect.innerHTML =
+      '<option value="">Failed to load moderators</option>';
+
+    alert(
+      "Unable to load inventory. Please refresh the page."
+    );
+
+  }
+
 }
+
+
+/* ==================================================
+   GET SELECTED PRODUCT
+================================================== */
+
+function getSelectedProduct(){
+
+  const selectedName =
+    productSelect.value;
+
+
+  return products.find(function(p){
+
+    return String(p.name).trim() ===
+           String(selectedName).trim();
+
+  }) || {
+
+    name:"",
+    colour:"",
+    stock:0,
+    price:0
+
+  };
+
+}
+
+
+/* ==================================================
+   UPDATE PRODUCT INFO + BILL
+================================================== */
+
+function update(){
+
+  const p =
+    getSelectedProduct();
+
+
+  /*
+   * Show stock
+   */
+
+  stockDisplay.innerText =
+    Number(p.stock || 0);
+
+
+  /*
+   * Show price
+   */
+
+  priceDisplay.innerText =
+    Number(p.price || 0);
+
+
+  /*
+   * Delivery fee
+   */
+
+  const fee =
+    areaSelect.value === "Inside Dhaka"
+      ? 60
+      : 120;
+
+
+  /*
+   * Discount
+   */
+
+  const discountValue =
+    Number(
+      discountInput.value
+    ) || 0;
+
+
+  /*
+   * Quantity
+   */
+
+  const quantity =
+    Number(
+      qtyInput.value
+    ) || 0;
+
+
+  /*
+   * Product price
+   */
+
+  const unitPrice =
+    Number(
+      p.price
+    ) || 0;
+
+
+  /*
+   * Calculate final bill
+   */
+
+  let total =
+    (
+      quantity *
+      unitPrice
+    ) -
+    discountValue;
+
+
+  /*
+   * Add delivery fee only
+   * when customer has NOT paid it.
+   */
+
+  if(
+    paidSelect.value === "No"
+  ){
+
+    total += fee;
+
+  }
+
+
+  /*
+   * Never allow negative bill
+   */
+
+  total =
+    Math.max(
+      0,
+      total
+    );
+
+
+  billDisplay.innerText =
+    total;
+
+}
+
+
+/* ==================================================
+   VALIDATION
+================================================== */
+
+function validate(
+  id,
+  errorId
+){
+
+  const field =
+    document.getElementById(id);
+
+  const error =
+    document.getElementById(errorId);
+
+
+  if(
+    !field.value.trim()
+  ){
+
+    field.classList.add(
+      "invalid"
+    );
+
+    error.style.display =
+      "block";
+
+    return false;
+
+  }
+
+
+  field.classList.remove(
+    "invalid"
+  );
+
+  error.style.display =
+    "none";
+
+  return true;
+
+}
+
+
+/* ==================================================
+   SUBMIT ORDER
+================================================== */
+
+async function submitOrder(){
+
+  let valid = true;
+
+
+  valid =
+    validate(
+      "name",
+      "name-error"
+    ) && valid;
+
+
+  valid =
+    validate(
+      "phone",
+      "phone-error"
+    ) && valid;
+
+
+  valid =
+    validate(
+      "address",
+      "address-error"
+    ) && valid;
+
+
+  valid =
+    validate(
+      "qty",
+      "qty-error"
+    ) && valid;
+
+
+  valid =
+    validate(
+      "moderator",
+      "moderator-error"
+    ) && valid;
+
+
+  valid =
+    validate(
+      "paid",
+      "paid-error"
+    ) && valid;
+
+
+  /*
+   * Product validation
+   */
+
+  if(
+    !productSelect.value
+  ){
+
+    document
+      .getElementById(
+        "product-error"
+      )
+      .style.display =
+        "block";
+
+    productSelect.classList.add(
+      "invalid"
+    );
+
+    valid = false;
+
+  }else{
+
+    document
+      .getElementById(
+        "product-error"
+      )
+      .style.display =
+        "none";
+
+    productSelect.classList.remove(
+      "invalid"
+    );
+
+  }
+
+
+  if(!valid){
+
+    return;
+
+  }
+
+
+  /*
+   * Selected product
+   */
+
+  const selected =
+    getSelectedProduct();
+
+
+  if(!selected.name){
+
+    alert(
+      "Product not found."
+    );
+
+    return;
+
+  }
+
+
+  /*
+   * Quantity
+   */
+
+  const quantity =
+    Number(
+      qtyInput.value
+    );
+
+
+  if(
+    !Number.isFinite(quantity) ||
+    quantity <= 0
+  ){
+
+    alert(
+      "Please enter a valid quantity."
+    );
+
+    return;
+
+  }
+
+
+  /*
+   * Stock check
+   */
+
+  const availableStock =
+    Number(
+      selected.stock
+    ) || 0;
+
+
+  if(
+    quantity >
+    availableStock
+  ){
+
+    alert(
+      "Insufficient stock.\n\n" +
+      "Available stock: " +
+      availableStock
+    );
+
+    return;
+
+  }
+
+
+  /*
+   * Delivery fee
+   */
+
+  const fee =
+    areaSelect.value ===
+    "Inside Dhaka"
+      ? 60
+      : 120;
+
+
+  /*
+   * Show loading
+   */
+
+  loading.style.display =
+    "flex";
+
+
+  try{
+
+    /*
+     * Send order
+     */
+
+    const response =
+      await fetch(
+        API,
+        {
+
+          method:"POST",
+
+          body:
+            JSON.stringify({
+
+              name:
+                nameInput.value.trim(),
+
+              phone:
+                phoneInput.value.trim(),
+
+              address:
+                addressInput.value.trim(),
+
+              product:
+                selected.name,
+
+              qty:
+                quantity,
+
+              unitPrice:
+                Number(
+                  selected.price
+                ) || 0,
+
+              deliveryArea:
+                areaSelect.value,
+
+              deliveryPaid:
+                paidSelect.value,
+
+              deliveryFee:
+                fee,
+
+              discount:
+                Number(
+                  discountInput.value
+                ) || 0,
+
+              finalBill:
+                Number(
+                  billDisplay.innerText
+                ) || 0,
+
+              note:
+                noteInput.value.trim(),
+
+              moderator:
+                moderatorSelect.value
+
+            })
+
+        }
+      );
+
+
+    /*
+     * Read response
+     */
+
+    const result =
+      await response.json();
+
+
+    /*
+     * Hide loading
+     */
+
+    loading.style.display =
+      "none";
+
+
+    /*
+     * Check result
+     */
+
+    if(
+      !result.success
+    ){
+
+      alert(
+        result.message ||
+        "Order failed."
+      );
+
+      return;
+
+    }
+
+
+    /*
+     * Success
+     */
+
+    success.style.display =
+      "block";
+
+
+  }catch(error){
+
+    loading.style.display =
+      "none";
+
+
+    console.error(error);
+
+
+    alert(
+      "Something went wrong while submitting the order."
+    );
+
+  }
+
+}
+
+
+/* ==================================================
+   CLOSE SUCCESS POPUP
+================================================== */
+
+function closePopup(){
+
+  success.style.display =
+    "none";
+
+  location.reload();
+
+}
+
+
+/* ==================================================
+   EVENT LISTENERS
+================================================== */
+
+document.addEventListener(
+  "change",
+  function(){
+
+    update();
+
+  }
+);
+
+
+document.addEventListener(
+  "input",
+  function(){
+
+    update();
+
+  }
+);
+
+
+/* ==================================================
+   START
+================================================== */
 
 load();
 
-function getSelectedProduct() {
-  return products.find(x => {
-    const key = (x.productCode && String(x.productCode).trim() !== "")
-      ? String(x.productCode).trim()
-      : x.name;
-    return key === product.value;
-  }) || { name:"", productCode:"", price:0, stock:0 };
-}
-
-function update() {
-  let p = getSelectedProduct();
-
-  stock.innerText = p.stock || 0;
-  price.innerText = p.price || 0;
-
-  let fee = area.value == "Inside Dhaka" ? 60 : 120;
-  let discountValue = +discount.value || 0;
-
-  let total = ((+qty.value || 0) * (Number(p.price) || 0))
-            - discountValue
-            + (paid.value == "No" ? fee : 0);
-
-  bill.innerText = Math.max(0, total);
-}
-
-document.addEventListener("change", update);
-document.addEventListener("input", update);
-
-function validate(id, errorId) {
-  let field = document.getElementById(id);
-  let error = document.getElementById(errorId);
-
-  if (!field.value.trim()) {
-    field.classList.add("invalid");
-    error.style.display = "block";
-    return false;
-  }
-
-  field.classList.remove("invalid");
-  error.style.display = "none";
-  return true;
-}
-
-async function submitOrder() {
-  let valid = true;
-
-  valid &= validate("name", "name-error");
-  valid &= validate("phone", "phone-error");
-  valid &= validate("address", "address-error");
-  valid &= validate("qty", "qty-error");
-  valid &= validate("moderator", "moderator-error");
-  valid &= validate("paid", "paid-error");
-
-  if (!valid) return;
-
-  let selected = getSelectedProduct();
-
-  if (!selected.name) {
-    alert("Product not found");
-    return;
-  }
-
-  if (+qty.value > Number(selected.stock || 0)) {
-    alert("Insufficient stock");
-    return;
-  }
-
-  loading.style.display = "flex";
-
-  let fee = area.value == "Inside Dhaka" ? 60 : 120;
-
-  try {
-    const res = await fetch(API, {
-      method: "POST",
-      body: JSON.stringify({
-        name: document.getElementById("name").value,
-        phone: phone.value,
-        address: address.value,
-        product: selected.name,
-        productCode: selected.productCode || "",
-        qty: +qty.value,
-        unitPrice: Number(selected.price) || 0,
-        deliveryArea: area.value,
-        deliveryPaid: paid.value,
-        deliveryFee: fee,
-        discount: +discount.value || 0,
-        finalBill: +bill.innerText,
-        note: note.value,
-        moderator: moderator.value
-      })
-    });
-
-    const result = await res.json();
-
-    loading.style.display = "none";
-
-    if (!result.success) {
-      alert(result.message || "Order failed");
-      return;
-    }
-
-    success.style.display = "block";
-
-  } catch (err) {
-    loading.style.display = "none";
-    alert("Something went wrong while submitting the order.");
-    console.error(err);
-  }
-}
-
-function closePopup() {
-  success.style.display = "none";
-  location.reload();
-}
 </script>
 
 </body>
