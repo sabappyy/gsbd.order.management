@@ -1,156 +1,512 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1">
+
 <title>GSBD Order Management</title>
 
+
 <style>
+
+/* ==================================================
+   BODY
+================================================== */
+
 body{
-  font-family:Arial,sans-serif;
-  background:#f4f7fb;
-  padding:20px;
-  margin:0;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  background:
+    #f4f7fb;
+
+  padding:
+    20px;
+
+  margin:
+    0;
+
 }
+
+
+/* ==================================================
+   CONTAINER
+================================================== */
 
 .container{
-  max-width:700px;
-  margin:auto;
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+  max-width:
+    700px;
+
+  margin:
+    auto;
+
+  background:
+    white;
+
+  padding:
+    25px;
+
+  border-radius:
+    20px;
+
+  box-shadow:
+    0 10px 25px
+    rgba(0,0,0,.08);
+
 }
+
+
+/* ==================================================
+   HEADINGS
+================================================== */
 
 h2{
-  margin-bottom:5px;
+
+  margin-bottom:
+    5px;
+
 }
+
 
 .sub{
-  color:#666;
-  margin-bottom:25px;
+
+  color:
+    #666;
+
+  margin-bottom:
+    25px;
+
 }
 
+
+/* ==================================================
+   LABELS
+================================================== */
+
 label{
-  display:block;
-  font-weight:600;
-  margin-top:12px;
-  margin-bottom:5px;
+
+  display:
+    block;
+
+  font-weight:
+    600;
+
+  margin-top:
+    12px;
+
+  margin-bottom:
+    5px;
+
 }
+
+
+/* ==================================================
+   INPUTS
+================================================== */
 
 input,
 select,
 textarea,
 button{
-  width:100%;
-  padding:14px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  box-sizing:border-box;
-  margin-bottom:5px;
+
+  width:
+    100%;
+
+  padding:
+    14px;
+
+  border:
+    1px solid #ddd;
+
+  border-radius:
+    10px;
+
+  box-sizing:
+    border-box;
+
+  margin-bottom:
+    5px;
+
 }
+
 
 textarea{
-  min-height:80px;
+
+  min-height:
+    80px;
+
 }
+
+
+/* ==================================================
+   PRODUCT SEARCH
+================================================== */
+
+.search-wrapper{
+
+  position:
+    relative;
+
+  margin-bottom:
+    8px;
+
+}
+
+
+#productSearch{
+
+  width:
+    100%;
+
+  padding:
+    13px 14px;
+
+  border:
+    1px solid #ccc;
+
+  border-radius:
+    10px;
+
+  box-sizing:
+    border-box;
+
+  font-size:
+    14px;
+
+  outline:
+    none;
+
+}
+
+
+#productSearch:focus{
+
+  border-color:
+    #111;
+
+}
+
+
+/* ==================================================
+   SEARCH RESULT COUNT
+================================================== */
+
+#searchInfo{
+
+  font-size:
+    12px;
+
+  color:
+    #777;
+
+  margin:
+    4px 0 7px 2px;
+
+}
+
+
+/* ==================================================
+   STATS
+================================================== */
 
 .stats{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
+
+  display:
+    flex;
+
+  gap:
+    10px;
+
+  margin-top:
+    10px;
+
 }
+
 
 .box{
-  flex:1;
-  background:#f8fafc;
-  padding:14px;
-  border-radius:10px;
+
+  flex:
+    1;
+
+  background:
+    #f8fafc;
+
+  padding:
+    14px;
+
+  border-radius:
+    10px;
+
 }
+
+
+/* ==================================================
+   ERROR
+================================================== */
 
 .error{
-  display:none;
-  color:red;
-  font-size:12px;
-  margin-bottom:10px;
+
+  display:
+    none;
+
+  color:
+    red;
+
+  font-size:
+    12px;
+
+  margin-bottom:
+    10px;
+
 }
+
 
 .invalid{
-  border:1px solid red !important;
+
+  border:
+    1px solid red !important;
+
 }
+
+
+/* ==================================================
+   BUTTON
+================================================== */
 
 button{
-  background:#111;
-  color:white;
-  border:none;
-  padding:15px;
-  font-size:16px;
-  cursor:pointer;
-  margin-top:20px;
+
+  background:
+    #111;
+
+  color:
+    white;
+
+  border:
+    none;
+
+  padding:
+    15px;
+
+  font-size:
+    16px;
+
+  cursor:
+    pointer;
+
+  margin-top:
+    20px;
+
 }
+
 
 button:hover{
-  opacity:.9;
+
+  opacity:
+    .9;
+
 }
+
+
+/* ==================================================
+   LOADING
+================================================== */
 
 #loading{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,.5);
-  justify-content:center;
-  align-items:center;
-  color:white;
-  font-size:24px;
-  z-index:999;
+
+  display:
+    none;
+
+  position:
+    fixed;
+
+  top:
+    0;
+
+  left:
+    0;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  background:
+    rgba(0,0,0,.5);
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  color:
+    white;
+
+  font-size:
+    24px;
+
+  z-index:
+    999;
+
 }
 
+
+/* ==================================================
+   SUCCESS
+================================================== */
+
 #success{
-  display:none;
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  text-align:center;
-  box-shadow:0 0 30px rgba(0,0,0,.2);
-  z-index:1000;
+
+  display:
+    none;
+
+  position:
+    fixed;
+
+  top:
+    50%;
+
+  left:
+    50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  background:
+    white;
+
+  padding:
+    30px;
+
+  border-radius:
+    20px;
+
+  text-align:
+    center;
+
+  box-shadow:
+    0 0 30px
+    rgba(0,0,0,.2);
+
+  z-index:
+    1000;
+
 }
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media(max-width:600px){
+
+  body{
+
+    padding:
+      10px;
+
+  }
+
+
+  .container{
+
+    padding:
+      18px;
+
+    border-radius:
+      15px;
+
+  }
+
+
+  .stats{
+
+    flex-direction:
+      column;
+
+  }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =================================================
+     LOADING
+================================================= -->
+
 <div id="loading">
+
   Submitting Order...
+
 </div>
 
+
+<!-- =================================================
+     SUCCESS
+================================================= -->
+
 <div id="success">
-  <h2>✅ খেলা শেষ...</h2>
-  <p>Order saved successfully</p>
-  <button onclick="closePopup()">OK</button>
+
+  <h2>
+    ✅ খেলা শেষ...
+  </h2>
+
+  <p>
+    Order saved successfully
+  </p>
+
+  <button
+    onclick="closePopup()"
+  >
+    OK
+  </button>
+
 </div>
+
+
+<!-- =================================================
+     MAIN CONTAINER
+================================================= -->
 
 <div class="container">
 
-  <h2>GSBD Order Management</h2>
+
+  <h2>
+    GSBD Order Management
+  </h2>
+
 
   <p class="sub">
     Order Confirmation & Inventory Management
   </p>
 
 
-  <!-- CUSTOMER NAME -->
+  <!-- =================================================
+       CUSTOMER NAME
+  ================================================= -->
 
-  <label>Customer Name *</label>
+  <label>
+    Customer Name *
+  </label>
+
 
   <input
     id="name"
     placeholder="Enter customer name"
   >
+
 
   <small
     id="name-error"
@@ -160,14 +516,20 @@ button:hover{
   </small>
 
 
-  <!-- PHONE -->
+  <!-- =================================================
+       PHONE
+  ================================================= -->
 
-  <label>Phone Number *</label>
+  <label>
+    Phone Number *
+  </label>
+
 
   <input
     id="phone"
     placeholder="Enter phone number"
   >
+
 
   <small
     id="phone-error"
@@ -177,14 +539,20 @@ button:hover{
   </small>
 
 
-  <!-- ADDRESS -->
+  <!-- =================================================
+       ADDRESS
+  ================================================= -->
 
-  <label>Customer Address *</label>
+  <label>
+    Customer Address *
+  </label>
+
 
   <textarea
     id="address"
     placeholder="Enter address"
   ></textarea>
+
 
   <small
     id="address-error"
@@ -194,15 +562,49 @@ button:hover{
   </small>
 
 
-  <!-- PRODUCT -->
+  <!-- =================================================
+       PRODUCT SEARCH
+  ================================================= -->
 
-  <label>Product *</label>
+  <label>
+    Search Product
+  </label>
+
+
+  <div class="search-wrapper">
+
+    <input
+      id="productSearch"
+      type="text"
+      placeholder="Type product name to search..."
+      autocomplete="off"
+    >
+
+  </div>
+
+
+  <div id="searchInfo">
+    Loading products...
+  </div>
+
+
+  <!-- =================================================
+       PRODUCT
+  ================================================= -->
+
+  <label>
+    Product *
+  </label>
+
 
   <select id="product">
+
     <option value="">
       Loading...
     </option>
+
   </select>
+
 
   <small
     id="product-error"
@@ -212,26 +614,45 @@ button:hover{
   </small>
 
 
-  <!-- PRODUCT INFO -->
+  <!-- =================================================
+       STOCK / PRICE
+  ================================================= -->
 
   <div class="stats">
 
-    <div class="box">
-      Stock Left:
-      <b id="stock">0</b>
-    </div>
 
     <div class="box">
-      Unit Price:
-      ৳ <b id="price">0</b>
+
+      Stock Left:
+      <b id="stock">
+        0
+      </b>
+
     </div>
+
+
+    <div class="box">
+
+      Unit Price:
+      ৳
+      <b id="price">
+        0
+      </b>
+
+    </div>
+
 
   </div>
 
 
-  <!-- QUANTITY -->
+  <!-- =================================================
+       QUANTITY
+  ================================================= -->
 
-  <label>Quantity *</label>
+  <label>
+    Quantity *
+  </label>
+
 
   <input
     id="qty"
@@ -239,6 +660,7 @@ button:hover{
     min="1"
     placeholder="Enter quantity"
   >
+
 
   <small
     id="qty-error"
@@ -248,9 +670,14 @@ button:hover{
   </small>
 
 
-  <!-- DELIVERY AREA -->
+  <!-- =================================================
+       DELIVERY AREA
+  ================================================= -->
 
-  <label>Delivery Area *</label>
+  <label>
+    Delivery Area *
+  </label>
+
 
   <select id="area">
 
@@ -265,9 +692,14 @@ button:hover{
   </select>
 
 
-  <!-- DELIVERY PAID -->
+  <!-- =================================================
+       DELIVERY PAID
+  ================================================= -->
 
-  <label>Customer Paid Delivery? *</label>
+  <label>
+    Customer Paid Delivery? *
+  </label>
+
 
   <select id="paid">
 
@@ -285,6 +717,7 @@ button:hover{
 
   </select>
 
+
   <small
     id="paid-error"
     class="error"
@@ -293,9 +726,14 @@ button:hover{
   </small>
 
 
-  <!-- DISCOUNT -->
+  <!-- =================================================
+       DISCOUNT
+  ================================================= -->
 
-  <label>Discount (৳)</label>
+  <label>
+    Discount (৳)
+  </label>
+
 
   <input
     id="discount"
@@ -305,9 +743,14 @@ button:hover{
   >
 
 
-  <!-- MODERATOR -->
+  <!-- =================================================
+       MODERATOR
+  ================================================= -->
 
-  <label>Moderator *</label>
+  <label>
+    Moderator *
+  </label>
+
 
   <select id="moderator">
 
@@ -317,6 +760,7 @@ button:hover{
 
   </select>
 
+
   <small
     id="moderator-error"
     class="error"
@@ -325,9 +769,14 @@ button:hover{
   </small>
 
 
-  <!-- NOTES -->
+  <!-- =================================================
+       NOTES
+  ================================================= -->
 
-  <label>Order Notes</label>
+  <label>
+    Order Notes
+  </label>
+
 
   <textarea
     id="note"
@@ -335,17 +784,24 @@ button:hover{
   ></textarea>
 
 
-  <!-- FINAL BILL -->
+  <!-- =================================================
+       FINAL BILL
+  ================================================= -->
 
   <div class="box">
 
     Final Bill:
-    ৳ <b id="bill">0</b>
+    ৳
+    <b id="bill">
+      0
+    </b>
 
   </div>
 
 
-  <!-- SUBMIT -->
+  <!-- =================================================
+       SUBMIT
+  ================================================= -->
 
   <button
     onclick="submitOrder()"
@@ -353,10 +809,12 @@ button:hover{
     Confirm Order
   </button>
 
+
 </div>
 
 
 <script>
+
 
 /* ==================================================
    API
@@ -371,49 +829,105 @@ const API =
 ================================================== */
 
 const nameInput =
-  document.getElementById("name");
+  document.getElementById(
+    "name"
+  );
+
 
 const phoneInput =
-  document.getElementById("phone");
+  document.getElementById(
+    "phone"
+  );
+
 
 const addressInput =
-  document.getElementById("address");
+  document.getElementById(
+    "address"
+  );
+
+
+const productSearch =
+  document.getElementById(
+    "productSearch"
+  );
+
 
 const productSelect =
-  document.getElementById("product");
+  document.getElementById(
+    "product"
+  );
+
+
+const searchInfo =
+  document.getElementById(
+    "searchInfo"
+  );
+
 
 const stockDisplay =
-  document.getElementById("stock");
+  document.getElementById(
+    "stock"
+  );
+
 
 const priceDisplay =
-  document.getElementById("price");
+  document.getElementById(
+    "price"
+  );
+
 
 const qtyInput =
-  document.getElementById("qty");
+  document.getElementById(
+    "qty"
+  );
+
 
 const areaSelect =
-  document.getElementById("area");
+  document.getElementById(
+    "area"
+  );
+
 
 const paidSelect =
-  document.getElementById("paid");
+  document.getElementById(
+    "paid"
+  );
+
 
 const discountInput =
-  document.getElementById("discount");
+  document.getElementById(
+    "discount"
+  );
+
 
 const moderatorSelect =
-  document.getElementById("moderator");
+  document.getElementById(
+    "moderator"
+  );
+
 
 const noteInput =
-  document.getElementById("note");
+  document.getElementById(
+    "note"
+  );
+
 
 const billDisplay =
-  document.getElementById("bill");
+  document.getElementById(
+    "bill"
+  );
+
 
 const loading =
-  document.getElementById("loading");
+  document.getElementById(
+    "loading"
+  );
+
 
 const success =
-  document.getElementById("success");
+  document.getElementById(
+    "success"
+  );
 
 
 /* ==================================================
@@ -424,37 +938,58 @@ let products = [];
 
 
 /* ==================================================
-   LOAD PRODUCTS + MODERATORS
+   LOAD DATA
 ================================================== */
 
 async function load(){
 
   try{
 
-    /*
-     * GET INVENTORY
-     */
+
+    /* ----------------------------------------------
+       CACHE BUSTER
+    ---------------------------------------------- */
+
+    const inventoryURL =
+      API +
+      "?cache=" +
+      Date.now();
+
+
+    /* ----------------------------------------------
+       LOAD INVENTORY
+    ---------------------------------------------- */
 
     const productResponse =
-      await fetch(API);
+      await fetch(
+        inventoryURL,
+        {
+          cache:
+            "no-store"
+        }
+      );
 
-    if(!productResponse.ok){
+
+    if(
+      !productResponse.ok
+    ){
 
       throw new Error(
-        "Unable to load inventory."
+        "Inventory request failed."
       );
 
     }
+
 
     products =
       await productResponse.json();
 
 
-    /*
-     * Make sure API returned an array
-     */
-
-    if(!Array.isArray(products)){
+    if(
+      !Array.isArray(
+        products
+      )
+    ){
 
       throw new Error(
         "Invalid inventory response."
@@ -463,53 +998,41 @@ async function load(){
     }
 
 
-    /*
-     * Populate product dropdown
-     */
+    /* ----------------------------------------------
+       LOAD PRODUCT DROPDOWN
+    ---------------------------------------------- */
 
-    productSelect.innerHTML =
-      '<option value="">Select product</option>';
-
-
-    products.forEach(function(p){
-
-      const option =
-        document.createElement("option");
-
-      /*
-       * Product name is now the value.
-       *
-       * Your Code.gs uses:
-       * Column B = Product Name
-       */
-
-      option.value =
-        p.name;
-
-      option.textContent =
-        p.name;
-
-      productSelect.appendChild(
-        option
-      );
-
-    });
+    renderProducts(
+      products
+    );
 
 
-    /*
-     * GET MODERATORS
-     */
+    /* ----------------------------------------------
+       LOAD MODERATORS
+    ---------------------------------------------- */
+
+    const moderatorURL =
+      API +
+      "?type=moderators&cache=" +
+      Date.now();
+
 
     const moderatorResponse =
       await fetch(
-        API + "?type=moderators"
+        moderatorURL,
+        {
+          cache:
+            "no-store"
+        }
       );
 
 
-    if(!moderatorResponse.ok){
+    if(
+      !moderatorResponse.ok
+    ){
 
       throw new Error(
-        "Unable to load moderators."
+        "Moderator request failed."
       );
 
     }
@@ -519,7 +1042,11 @@ async function load(){
       await moderatorResponse.json();
 
 
-    if(!Array.isArray(moderators)){
+    if(
+      !Array.isArray(
+        moderators
+      )
+    ){
 
       throw new Error(
         "Invalid moderator response."
@@ -528,48 +1055,56 @@ async function load(){
     }
 
 
-    /*
-     * Populate moderator dropdown
-     */
-
     moderatorSelect.innerHTML =
       '<option value="">Select moderator</option>';
 
 
-    moderators.forEach(function(m){
+    moderators.forEach(
+      function(moderator){
 
-      const option =
-        document.createElement("option");
-
-      option.value =
-        m;
-
-      option.textContent =
-        m;
-
-      moderatorSelect.appendChild(
-        option
-      );
-
-    });
+        const option =
+          document.createElement(
+            "option"
+          );
 
 
-    /*
-     * Update product information
-     */
+        option.value =
+          moderator;
+
+
+        option.textContent =
+          moderator;
+
+
+        moderatorSelect.appendChild(
+          option
+        );
+
+      }
+    );
+
 
     update();
 
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
+
 
     productSelect.innerHTML =
       '<option value="">Failed to load products</option>';
 
+
     moderatorSelect.innerHTML =
       '<option value="">Failed to load moderators</option>';
+
+
+    searchInfo.innerText =
+      "Failed to load products.";
+
 
     alert(
       "Unable to load inventory. Please refresh the page."
@@ -578,6 +1113,134 @@ async function load(){
   }
 
 }
+
+
+/* ==================================================
+   RENDER PRODUCTS
+================================================== */
+
+function renderProducts(
+  list
+){
+
+  productSelect.innerHTML =
+    "";
+
+
+  if(
+    list.length === 0
+  ){
+
+    productSelect.innerHTML =
+      '<option value="">No products found</option>';
+
+
+    searchInfo.innerText =
+      "No products found.";
+
+
+    return;
+
+  }
+
+
+  list.forEach(
+    function(product){
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      /*
+       * Product name is the
+       * unique selection value.
+       */
+
+      option.value =
+        product.name;
+
+
+      option.textContent =
+        product.name;
+
+
+      productSelect.appendChild(
+        option
+      );
+
+    }
+  );
+
+
+  searchInfo.innerText =
+    list.length +
+    " product(s)";
+
+
+  update();
+
+}
+
+
+/* ==================================================
+   PRODUCT SEARCH
+================================================== */
+
+productSearch.addEventListener(
+  "input",
+  function(){
+
+    const search =
+      productSearch.value
+        .trim()
+        .toLowerCase();
+
+
+    if(
+      !search
+    ){
+
+      renderProducts(
+        products
+      );
+
+      return;
+
+    }
+
+
+    const filtered =
+      products.filter(
+        function(product){
+
+          return product.name
+            .toLowerCase()
+            .includes(search);
+
+        }
+      );
+
+
+    renderProducts(
+      filtered
+    );
+
+
+    if(
+      filtered.length > 0
+    ){
+
+      productSelect.value =
+        filtered[0].name;
+
+      update();
+
+    }
+
+  }
+);
 
 
 /* ==================================================
@@ -590,17 +1253,30 @@ function getSelectedProduct(){
     productSelect.value;
 
 
-  return products.find(function(p){
+  return products.find(
+    function(product){
 
-    return String(p.name).trim() ===
-           String(selectedName).trim();
+      return String(
+        product.name
+      ).trim() ===
+      String(
+        selectedName
+      ).trim();
 
-  }) || {
+    }
+  ) || {
 
-    name:"",
-    colour:"",
-    stock:0,
-    price:0
+    name:
+      "",
+
+    colour:
+      "",
+
+    stock:
+      0,
+
+    price:
+      0
 
   };
 
@@ -608,53 +1284,48 @@ function getSelectedProduct(){
 
 
 /* ==================================================
-   UPDATE PRODUCT INFO + BILL
+   UPDATE STOCK / PRICE / BILL
 ================================================== */
 
 function update(){
 
-  const p =
+  const product =
     getSelectedProduct();
 
 
   /*
-   * Show stock
+   * STOCK
    */
 
   stockDisplay.innerText =
-    Number(p.stock || 0);
+    Number(
+      product.stock || 0
+    );
 
 
   /*
-   * Show price
+   * PRICE
    */
 
   priceDisplay.innerText =
-    Number(p.price || 0);
+    Number(
+      product.price || 0
+    );
 
 
   /*
-   * Delivery fee
+   * DELIVERY FEE
    */
 
   const fee =
-    areaSelect.value === "Inside Dhaka"
+    areaSelect.value ===
+    "Inside Dhaka"
       ? 60
       : 120;
 
 
   /*
-   * Discount
-   */
-
-  const discountValue =
-    Number(
-      discountInput.value
-    ) || 0;
-
-
-  /*
-   * Quantity
+   * QUANTITY
    */
 
   const quantity =
@@ -664,17 +1335,27 @@ function update(){
 
 
   /*
-   * Product price
+   * DISCOUNT
    */
 
-  const unitPrice =
+  const discount =
     Number(
-      p.price
+      discountInput.value
     ) || 0;
 
 
   /*
-   * Calculate final bill
+   * PRODUCT PRICE
+   */
+
+  const unitPrice =
+    Number(
+      product.price
+    ) || 0;
+
+
+  /*
+   * TOTAL
    */
 
   let total =
@@ -682,16 +1363,16 @@ function update(){
       quantity *
       unitPrice
     ) -
-    discountValue;
+    discount;
 
 
   /*
-   * Add delivery fee only
-   * when customer has NOT paid it.
+   * DELIVERY CHARGE
    */
 
   if(
-    paidSelect.value === "No"
+    paidSelect.value ===
+    "No"
   ){
 
     total += fee;
@@ -700,7 +1381,7 @@ function update(){
 
 
   /*
-   * Never allow negative bill
+   * Prevent negative bill
    */
 
   total =
@@ -717,7 +1398,7 @@ function update(){
 
 
 /* ==================================================
-   VALIDATION
+   VALIDATE
 ================================================== */
 
 function validate(
@@ -726,10 +1407,15 @@ function validate(
 ){
 
   const field =
-    document.getElementById(id);
+    document.getElementById(
+      id
+    );
+
 
   const error =
-    document.getElementById(errorId);
+    document.getElementById(
+      errorId
+    );
 
 
   if(
@@ -740,8 +1426,10 @@ function validate(
       "invalid"
     );
 
+
     error.style.display =
       "block";
+
 
     return false;
 
@@ -752,8 +1440,10 @@ function validate(
     "invalid"
   );
 
+
   error.style.display =
     "none";
+
 
   return true;
 
@@ -812,12 +1502,17 @@ async function submitOrder(){
 
 
   /*
-   * Product validation
+   * PRODUCT VALIDATION
    */
 
   if(
     !productSelect.value
   ){
+
+    productSelect.classList.add(
+      "invalid"
+    );
+
 
     document
       .getElementById(
@@ -826,13 +1521,15 @@ async function submitOrder(){
       .style.display =
         "block";
 
-    productSelect.classList.add(
-      "invalid"
-    );
 
     valid = false;
 
   }else{
+
+    productSelect.classList.remove(
+      "invalid"
+    );
+
 
     document
       .getElementById(
@@ -841,29 +1538,29 @@ async function submitOrder(){
       .style.display =
         "none";
 
-    productSelect.classList.remove(
-      "invalid"
-    );
-
   }
 
 
-  if(!valid){
+  if(
+    !valid
+  ){
 
     return;
 
   }
 
 
-  /*
-   * Selected product
-   */
+  /* ----------------------------------------------
+     SELECTED PRODUCT
+  ---------------------------------------------- */
 
   const selected =
     getSelectedProduct();
 
 
-  if(!selected.name){
+  if(
+    !selected.name
+  ){
 
     alert(
       "Product not found."
@@ -874,9 +1571,9 @@ async function submitOrder(){
   }
 
 
-  /*
-   * Quantity
-   */
+  /* ----------------------------------------------
+     QUANTITY
+  ---------------------------------------------- */
 
   const quantity =
     Number(
@@ -885,7 +1582,9 @@ async function submitOrder(){
 
 
   if(
-    !Number.isFinite(quantity) ||
+    !Number.isInteger(
+      quantity
+    ) ||
     quantity <= 0
   ){
 
@@ -898,9 +1597,9 @@ async function submitOrder(){
   }
 
 
-  /*
-   * Stock check
-   */
+  /* ----------------------------------------------
+     STOCK
+  ---------------------------------------------- */
 
   const availableStock =
     Number(
@@ -924,20 +1623,20 @@ async function submitOrder(){
   }
 
 
-  /*
-   * Delivery fee
-   */
+  /* ----------------------------------------------
+     DELIVERY
+  ---------------------------------------------- */
 
-  const fee =
+  const deliveryFee =
     areaSelect.value ===
     "Inside Dhaka"
       ? 60
       : 120;
 
 
-  /*
-   * Show loading
-   */
+  /* ----------------------------------------------
+     LOADING
+  ---------------------------------------------- */
 
   loading.style.display =
     "flex";
@@ -945,16 +1644,23 @@ async function submitOrder(){
 
   try{
 
-    /*
-     * Send order
-     */
+
+    /* --------------------------------------------
+       SUBMIT
+    -------------------------------------------- */
 
     const response =
       await fetch(
-        API,
+        API +
+        "?submit=" +
+        Date.now(),
         {
 
-          method:"POST",
+          method:
+            "POST",
+
+          cache:
+            "no-store",
 
           body:
             JSON.stringify({
@@ -986,7 +1692,7 @@ async function submitOrder(){
                 paidSelect.value,
 
               deliveryFee:
-                fee,
+                deliveryFee,
 
               discount:
                 Number(
@@ -1010,25 +1716,17 @@ async function submitOrder(){
       );
 
 
-    /*
-     * Read response
-     */
-
     const result =
       await response.json();
 
-
-    /*
-     * Hide loading
-     */
 
     loading.style.display =
       "none";
 
 
-    /*
-     * Check result
-     */
+    /* --------------------------------------------
+       ERROR
+    -------------------------------------------- */
 
     if(
       !result.success
@@ -1044,9 +1742,9 @@ async function submitOrder(){
     }
 
 
-    /*
-     * Success
-     */
+    /* --------------------------------------------
+       SUCCESS
+    -------------------------------------------- */
 
     success.style.display =
       "block";
@@ -1058,7 +1756,9 @@ async function submitOrder(){
       "none";
 
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     alert(
@@ -1071,13 +1771,14 @@ async function submitOrder(){
 
 
 /* ==================================================
-   CLOSE SUCCESS POPUP
+   CLOSE SUCCESS
 ================================================== */
 
 function closePopup(){
 
   success.style.display =
     "none";
+
 
   location.reload();
 
@@ -1088,7 +1789,7 @@ function closePopup(){
    EVENT LISTENERS
 ================================================== */
 
-document.addEventListener(
+productSelect.addEventListener(
   "change",
   function(){
 
@@ -1098,7 +1799,37 @@ document.addEventListener(
 );
 
 
-document.addEventListener(
+areaSelect.addEventListener(
+  "change",
+  function(){
+
+    update();
+
+  }
+);
+
+
+paidSelect.addEventListener(
+  "change",
+  function(){
+
+    update();
+
+  }
+);
+
+
+qtyInput.addEventListener(
+  "input",
+  function(){
+
+    update();
+
+  }
+);
+
+
+discountInput.addEventListener(
   "input",
   function(){
 
@@ -1117,4 +1848,5 @@ load();
 </script>
 
 </body>
+
 </html>
